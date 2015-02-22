@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>help</class>
+ <widget class="QMainWindow" name="help">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>880</width>
+    <height>540</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>880</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>880</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>О программе</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/mres.qrc">:/mres/ball.ico</iconset>
+  </property>
+  <property name="locale">
+   <locale language="Russian" country="RussianFederation"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>881</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="locale">
+     <locale language="Russian" country="RussianFederation"/>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
+&lt;/head&gt;
+&lt;body style=&quot;font-family:serif; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; -qt-block-indent:0; text-indent:0px; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;margin-top:0px;&quot; align=&quot;center&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Описание установки&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;В программе моделируется поведение шарика, который совершает &amp;quot;Мертвую петлю&amp;quot;, то есть катится по круговому сектору. В модели можно изменять: угол наклона начального сектора (по которому шар набирает скорость), его длину, радиус проходимой шаром окружности и радиус шара.&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;В программе выводятся графики: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	- скорость шара&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	- угловая скорость шара &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	- изменение высоты шара относительно нижней точки желоба&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;margin-top:20px;&quot; align=&quot;center&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Модель&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;В рамках данного проекта мы моделируем движение шарика с качением без скольжения в «мёртвой петле», образованной прямоугольным желобом. &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image001.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt; траектория движения центра шарика при прохождении петли&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	β - угол наклона начального участка&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	L - длина начального участка петли&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	R - радиус петли&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	r - радиус шарика&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;	α - текущий угол, с помощью которого задаём положение шарика &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Движение шарика разбивается на четыре основных участка: движение по наклонной части желоба, движение по входному в петлю сектору β, движение и петле и выкатывание шарика по горизонтальному участку желоба. &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Поскольку мы имеем дело с качением, для решения задачи нам необходимо составить уравнение динамики вращательного движения твёрдого тела относительно оси вращения. &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/pic1.PNG&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Необходимо вычислить момент инерции. Рассмотрим вращение шарика относительно неподвижной оси, совпадающей в данный момент времени с мгновенной осью вращения. Нам известен момент инерции шарика относительно оси, проходящей через центр масс. Поэтому мы можем воспользоваться теоремой Штейнера, если найдём расстояние между осями: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image002.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image004.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;Поперечное сечение шарика и желоба&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Вращение шарика при качении происходит вокруг оси, обозначенной пунктиром.&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Воспользуемся теоремой Штейнера.&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image006.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Теперь рассмотрим первый участок движения шарика: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Относительно данной оси в уравнении динамики вращательного движения твёрдого тела ненулевым является только момент силы тяжести. &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/sn1.PNG&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Мы можем вычислить характеристики шарика: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/sn2.PNG&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image012.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;На втором участке при расчёте углового ускорения шарика и мгновенного ускорения поступаем аналогично. Движение рассматриваем как движение по окружности (пунктир на рисунке соответствует траектории движения центра шарика). &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Угол α изменяется от – β до 2π &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image014.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/sn3.PNG&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Так как &lt;img src=&quot;:/help.files/image018.png&quot; /&gt;, найдём α при помощи метода Эйлера. Реализация его алгоритма находится непосредственно в коде. &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image020.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Третий участок отличается от второго смещением по ещё одной оси координат (необходимо для движения именно по петле, а не по замкнутой окружности). &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Движение по последнему участку: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image022.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Случай падения находим, если выполняется: &lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;center&quot;&gt;&lt;img src=&quot;:/help.files/image024.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;margin-top:20px;&quot; align=&quot;center&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Помощь в управлении&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;При запуске программы, перед вами открывается загрузочное окно с титульным лиистом проекта.&lt;/p&gt;
+&lt;p style=&quot;margin-left:20px;margin-right:20px;&quot; align=&quot;justify&quot;&gt;Второе загруженное окно - главное окно приложения, изменить вид на установку можно с помощью колесика мышки &lt;span style=&quot;font-style:italic;&quot;&gt;(увеличение, уменьшение)&lt;/span&gt; и с помощье левой кнопки мыши &lt;span style=&quot;font-style:italic;&quot;&gt;(нажать левую кнопку мыши и перемещая мышь изменить угол обзора)&lt;/span&gt;. На вкладке графики предоставлены графики изменения различных величин, с помощью колесика мышки можно изменять его масштаб.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; -qt-block-indent:0; text-indent:0px; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../resources/mres.qrc"/>
+ </resources>
+ <connections/>
+</ui>

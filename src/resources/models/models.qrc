@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/data">
+        <file>m_sphere.ms3d</file>
+        <file>m_track_s1.ms3d</file>
+        <file>m_track_s2.ms3d</file>
+        <file>m_track_s3.ms3d</file>
+        <file>t_orange.png</file>
+        <file>t_gray.png</file>
+    </qresource>
+</RCC>
