@@ -47,8 +47,8 @@ void Cscene2dn::adjustAxis(float & min, float & max, int & numTicks)
     const float axis_epsilon = 1.0f / 10000.0f;
     if(max - min < axis_epsilon)
     {
-        min -= 2.0 * axis_epsilon;
-        max += 2.0 * axis_epsilon;
+        min -= 2.0f * axis_epsilon;
+        max += 2.0f * axis_epsilon;
     }
 
     const int MinTicks = 6;
