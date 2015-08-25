@@ -5,9 +5,14 @@
 # Authors: Alexandrov Mikhail, Zhigalov Peter, Kurochkin Andrey
 #-------------------------------------------------
 
-# TODO: Модели кривоваты
+# === Настраиваемые опции ======================================================
+
+# Использовать софтварный растеризатор
+#CONFIG += use_swrast
 
 # ==============================================================================
+
+# TODO: Модели кривоваты
 
 DEFINES += VERSION_NUMBER=\\\"v0.37\\\"
 
@@ -21,17 +26,21 @@ QT += core gui opengl
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += HAVE_QT5
-    contains(QT_CONFIG, dynamicgl) {
-        win32-g++* {
-            QMAKE_LIBS += -lopengl32
+    !use_swrast {
+        contains(QT_CONFIG, dynamicgl) {
+            win32-g++* {
+                QMAKE_LIBS += -lopengl32
+            } else {
+                QMAKE_LIBS += opengl32.lib
+            }
+            DEFINES += USE_FORCE_GL
         } else {
-            QMAKE_LIBS += opengl32.lib
+            contains(QT_CONFIG, opengles.) | contains(QT_CONFIG, angle) {
+                error("This program requires Qt to be configured with -opengl desktop (recommended) or -opengl dynamic")
+            }
         }
-        DEFINES += USE_FORCE_GL
     } else {
-        contains(QT_CONFIG, opengles.) | contains(QT_CONFIG, angle) {
-            error("This program requires Qt to be configured with -opengl desktop (recommended) or -opengl dynamic")
-        }
+        win32:message("Config option use_swrast may be incompatible with Qt 5 and above")
     }
 }
 
@@ -94,6 +103,17 @@ RESOURCES += src/resources/mres.qrc \
              src/resources/models/models.qrc \
              src/resources/menuicons/menuicons.qrc
 
+use_swrast {
+    QT -= opengl
+    DEFINES += USE_SWRAST
+    SOURCES += \
+        src/swrast/swrast_widget.cpp
+    HEADERS += \
+        src/swrast/swrast_common.h \
+        src/swrast/swrast_geometry.h \
+        src/swrast/swrast_widget.h
+}
+
 # === Сборочные директории =====================================================
 
 DESTDIR = .
@@ -113,6 +133,7 @@ CONFIG += warn_on
     QMAKE_CXXFLAGS_RELEASE *= -O3
     QMAKE_CXXFLAGS_RELEASE *= -ffast-math
     QMAKE_CXXFLAGS_RELEASE *= -fno-math-errno
+    QMAKE_CXXFLAGS_RELEASE *= -DNDEBUG
 }
 
 *msvc* {
