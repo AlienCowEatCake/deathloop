@@ -1,6 +1,6 @@
 #!/bin/bash
 V_PROJECT=deathloop
-V_VERS=0.37
+V_VERS=0.38
 V_BUILDDIR=../build_linux_qt5
 
 LINK="`readlink $0`"

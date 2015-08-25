@@ -1,6 +1,6 @@
 @echo off
 set V_PROJECT=deathloop
-set V_VERS=0.37
+set V_VERS=0.38
 set V_ARCH=x64
 set V_VCVARS="C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set V_QTDIR=C:\Qt\qt4.8.7-msvc2015-x64-static

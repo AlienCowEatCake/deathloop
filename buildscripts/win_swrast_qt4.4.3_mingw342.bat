@@ -1,6 +1,6 @@
 @echo off
 set V_PROJECT=deathloop
-set V_VERS=0.37
+set V_VERS=0.38
 set QTDIR=C:\Qt\qt4.4.3-mingw342-static
 set MINGWDIR=C:\Qt\MinGW-3.4.2
 set V_BUILDDIR=build_win_swrast_qt4.4.3_mingw342
