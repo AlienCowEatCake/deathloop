@@ -45,11 +45,7 @@ GLfloat light_position[] = {0.5f, 0.0f, 0.5f, 0.0f};    //позиция ист�
 
 Cscene3D::Cscene3D(QWidget* parent) : BaseWidget(parent)
 {
-    xRot = -90.0f;
-    yRot = 0.0f;
-    zRot = 0.0f;
-    zTra = 0.0f;
-    nSca = 0.2f;
+    defaultScene();
 }
 
 void Cscene3D::actiontime()
@@ -276,7 +272,8 @@ void Cscene3D::defaultScene()
     yRot = 0.0f;
     zRot = 0.0f;
     zTra = 0.0f;
-    nSca = 1.0f;
+    nSca = 0.2f;
+    update_light();
 }
 
 // Обновление освещения при изменении масштаба
