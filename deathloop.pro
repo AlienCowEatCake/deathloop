@@ -2,7 +2,6 @@
 #
 # Project created by QtCreator 2011-10-29T19:43:53
 #
-# Authors: Alexandrov Mikhail, Zhigalov Peter, Kurochkin Andrey
 #-------------------------------------------------
 
 # === Настраиваемые опции ======================================================
@@ -14,105 +13,76 @@
 
 # TODO: Модели кривоваты
 
-DEFINES += VERSION_NUMBER=\\\"v0.38\\\"
-
 TEMPLATE = app
 TARGET = deathloop
 
-INCLUDEPATH += src
+INCLUDEPATH += src/Deathloop src/Deathloop-old
 
-QT += core gui opengl
+#DEFINES += QT_NO_CAST_FROM_ASCII
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
-    DEFINES += HAVE_QT5
-    !use_swrast {
-        contains(QT_CONFIG, dynamicgl) {
-            win32-g++* {
-                QMAKE_LIBS += -lopengl32
-            } else {
-                QMAKE_LIBS += opengl32.lib
-            }
-            DEFINES += USE_FORCE_GL
-        } else {
-            contains(QT_CONFIG, opengles.) | contains(QT_CONFIG, angle) {
-                error("This program requires Qt to be configured with -opengl desktop (recommended) or -opengl dynamic")
-            }
-        }
-    } else {
-        win32:message("Config option use_swrast may be incompatible with Qt 5 and above")
-    }
-}
+include(src/PhysicalLabCore/PhysicalLabCore.pri)
 
-win32:lessThan(QT_VERSION, 4.5.0) {
-    win32-g++*|win32-msvc|win32-msvc.net|win32-msvc200* {
-        DEFINES += HAVE_OLD_QT
-    }
-}
+HEADERS += \
+    src/Deathloop/Action.h \
+    src/Deathloop/PhysicalController.h \
+    src/Deathloop/ModelInfo.h \
+    src/Deathloop/ModelSphere.h \
+    src/Deathloop/ModelTrackS1.h \
+    src/Deathloop/ModelTrackS2.h \
+    src/Deathloop/ModelTrackS3.h \
+    src/Deathloop/ModelTrackS4.h \
+    src/Deathloop/Scene3D.h \
+    src/Deathloop/GraphWindowAngular.h \
+    src/Deathloop/GraphWindowHeight.h \
+    src/Deathloop/GraphWindowSpeed.h \
+    src/Deathloop/MainWindow.h
 
-HEADERS += src/cscene3d.h \
-           src/mainwindow.h \
-           src/main.h \
-           src/cmodel.h \
-           src/caction.h \
-           src/frame.h \
-           src/help.h \
-           src/author.h \
-           src/cscene2dn.h \
-           src/gframe_hight.h \
-           src/gframe_speed.h \
-           src/gframe_angular.h \
-           src/license.h
+SOURCES += \
+    src/Deathloop/Action.cpp \
+    src/Deathloop/PhysicalController.cpp \
+    src/Deathloop/ModelInfo.cpp \
+    src/Deathloop/ModelSphere.cpp \
+    src/Deathloop/ModelTrackS1.cpp \
+    src/Deathloop/ModelTrackS2.cpp \
+    src/Deathloop/ModelTrackS3.cpp \
+    src/Deathloop/ModelTrackS4.cpp \
+    src/Deathloop/Scene3D.cpp \
+    src/Deathloop/GraphWindowAngular.cpp \
+    src/Deathloop/GraphWindowHeight.cpp \
+    src/Deathloop/GraphWindowSpeed.cpp \
+    src/Deathloop/MainWindow.cpp \
+    src/Deathloop/main.cpp
 
-SOURCES += src/main.cpp \
-           src/cscene3d.cpp \
-           src/mainwindow.cpp \
-           src/cmodel.cpp \
-           src/cmilkshapemodel.cpp \
-           src/caction.cpp \
-           src/frame.cpp \
-           src/help.cpp \
-           src/author.cpp \
-           src/cscene2dn.cpp \
-           src/gframe_hight.cpp \
-           src/gframe_speed.cpp \
-           src/gframe_angular.cpp \
-           src/license.cpp
+FORMS += src/Deathloop/MainWindow.ui
 
-FORMS +=   src/frame.ui \
-           src/gframe_hight.ui \
-           src/gframe_speed.ui \
-           src/gframe_angular.ui \
-           src/mainwindow.ui
+TRANSLATIONS += \
+    src/Deathloop/resources/translations/en.ts \
+    src/Deathloop/resources/translations/ru.ts
 
 win32 {
-  FORMS += src/win32/author.ui \
-           src/win32/help.ui \
-           src/win32/license.ui
-  RC_FILE += src/resources/icon.rc
+    RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-windows.qrc
+    RC_FILE += src/Deathloop/resources-old/icon.rc
 }
 
-unix {
-  FORMS += src/linux/author.ui \
-           src/linux/help.ui \
-           src/linux/license.ui
+unix:!macx {
+    RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-linux.qrc
 }
 
-RESOURCES += src/resources/mres.qrc \
-             src/resources/help/help.qrc \
-             src/resources/models/models.qrc \
-             src/resources/menuicons/menuicons.qrc
-
-use_swrast {
-    QT -= opengl
-    DEFINES += USE_SWRAST
-    SOURCES += \
-        src/swrast/swrast_widget.cpp
-    HEADERS += \
-        src/swrast/swrast_common.h \
-        src/swrast/swrast_geometry.h \
-        src/swrast/swrast_widget.h
+macx {
+    lessThan(QT_MAJOR_VERSION, 5) {
+        RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-macosx-qt4.qrc
+    } else {
+        RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-macosx.qrc
+    }
 }
+
+RESOURCES += \
+    src/Deathloop/resources-old/mres.qrc \
+    src/Deathloop/resources/html/html.qrc \
+    src/Deathloop/resources/help/help.qrc \
+    src/Deathloop/resources/models/models.qrc \
+    src/Deathloop/resources/menuicons/menuicons.qrc \
+    src/Deathloop/resources/translations/translations.qrc
 
 # === Сборочные директории =====================================================
 
@@ -125,21 +95,8 @@ UI_DIR = build
 # === Опции компиляции =========================================================
 
 QMAKE_RESOURCE_FLAGS += -threshold 0 -compress 9
-CONFIG += warn_on
 
 *g++*|*clang* {
-    QMAKE_CXXFLAGS_WARN_ON *= -Wextra
-    QMAKE_CXXFLAGS_RELEASE -= -O2
-    QMAKE_CXXFLAGS_RELEASE *= -O3
     QMAKE_CXXFLAGS_RELEASE *= -ffast-math
     QMAKE_CXXFLAGS_RELEASE *= -fno-math-errno
-    QMAKE_CXXFLAGS_RELEASE *= -DNDEBUG
 }
-
-*msvc* {
-    QMAKE_CXXFLAGS_RELEASE -= -O2
-    QMAKE_CXXFLAGS_RELEASE *= -Ox
-    DEFINES += _CRT_SECURE_NO_WARNINGS
-    DEFINES += _USE_MATH_DEFINES
-}
-

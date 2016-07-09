@@ -1,0 +1,69 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="qrc:///html/platform.css">
+	<style type="text/css">
+		.spacer { -qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; }
+		.tabbed { margin-left: 12ex; }
+		.caption { margin-top: 0px; margin-bottom: 24px; }
+		p { margin-top: 12px; margin-bottom: 12px; margin-left: 20px; margin-right: 20px; -qt-block-indent:0; text-indent:0px; }
+		img { vertical-align: middle; }
+		ul { margin-top: 0px; }
+	</style>
+</head>
+<body id="help">
+	<p class="spacer"></p>
+	<p align="center"><b>Описание установки</b></p>
+	<p align="justify">В программе моделируется поведение шарика, который совершает &quot;Мертвую петлю&quot;, то есть катится по круговому сектору. В модели можно изменять: угол наклона начального сектора (по которому шар набирает скорость), его длину, радиус проходимой шаром окружности и радиус шара.</p>
+	<p align="justify">В программе выводятся графики:
+		<ul>
+			<li>скорость шара</li>
+			<li>угловая скорость шара</li>
+			<li>изменение высоты шара относительно нижней точки желоба</li>
+		</ul>
+	</p>
+	<p class="spacer"></p>
+	<p align="center"><b>Модель</b></p>
+	<p align="justify">В рамках данного проекта мы моделируем движение шарика с качением без скольжения в «мёртвой петле», образованной прямоугольным желобом.</p>
+	<p align="center"><img src="qrc:///html/help.files/image001.png" /></p>
+	<p align="center" class="caption"><i>Траектория движения центра шарика при прохождении петли</i></p>
+	<p align="justify" class="tabbed">β - угол наклона начального участка</p>
+	<p align="justify" class="tabbed">L - длина начального участка петли</p>
+	<p align="justify" class="tabbed">R - радиус петли</p>
+	<p align="justify" class="tabbed">r - радиус шарика</p>
+	<p align="justify" class="tabbed">α - текущий угол, с помощью которого задаём положение шарика</p>
+	<p align="justify">Движение шарика разбивается на четыре основных участка: движение по наклонной части желоба, движение по входному в петлю сектору β, движение и петле и выкатывание шарика по горизонтальному участку желоба.</p>
+	<p align="justify">Поскольку мы имеем дело с качением, для решения задачи нам необходимо составить уравнение динамики вращательного движения твёрдого тела относительно оси вращения.</p>
+	<p align="center"><img src="qrc:///html/help.files/pic1.PNG" /></p>
+	<p align="justify">Необходимо вычислить момент инерции. Рассмотрим вращение шарика относительно неподвижной оси, совпадающей в данный момент времени с мгновенной осью вращения. Нам известен момент инерции шарика относительно оси, проходящей через центр масс. Поэтому мы можем воспользоваться теоремой Штейнера, если найдём расстояние между осями:</p>
+	<p align="center"><img src="qrc:///html/help.files/image002.png" /></p>
+	<p align="center"><img src="qrc:///html/help.files/image004.png" /></p>
+	<p align="center" class="caption"><i>Поперечное сечение шарика и желоба</i></p>
+	<p align="justify">Вращение шарика при качении происходит вокруг оси, обозначенной пунктиром.</p>
+	<p align="justify">Воспользуемся теоремой Штейнера.</p>
+	<p align="center"><img src="qrc:///html/help.files/image006.png" /></p>
+	<p align="justify">Теперь рассмотрим первый участок движения шарика:</p>
+	<p align="justify">Относительно данной оси в уравнении динамики вращательного движения твёрдого тела ненулевым является только момент силы тяжести.</p>
+	<p align="center"><img src="qrc:///html/help.files/sn1.PNG" /></p>
+	<p align="justify">Мы можем вычислить характеристики шарика:</p>
+	<p align="center"><img src="qrc:///html/help.files/sn2.PNG" /></p>
+	<p align="center"><img src="qrc:///html/help.files/image012.png" /></p>
+	<p align="justify">На втором участке при расчёте углового ускорения шарика и мгновенного ускорения поступаем аналогично. Движение рассматриваем как движение по окружности (пунктир на рисунке соответствует траектории движения центра шарика).</p>
+	<p align="justify">Угол α изменяется от – β до 2π</p>
+	<p align="center"><img src="qrc:///html/help.files/image014.png" /></p>
+	<p align="center"><img src="qrc:///html/help.files/sn3.PNG" /></p>
+	<p align="justify">Так как <img src="qrc:///html/help.files/image018.png" />, найдём α при помощи метода Эйлера. Реализация его алгоритма находится непосредственно в коде.</p>
+	<p align="center"><img src="qrc:///html/help.files/image020.png" /></p>
+	<p align="justify">Третий участок отличается от второго смещением по ещё одной оси координат (необходимо для движения именно по петле, а не по замкнутой окружности).</p>
+	<p align="justify">Движение по последнему участку: </p>
+	<p align="center"><img src="qrc:///html/help.files/image022.png" /></p>
+	<p align="justify">Случай падения находим, если выполняется:</p>
+	<p align="center"><img src="qrc:///html/help.files/image024.png" /></p>
+	<p class="spacer"></p>
+	<p align="center"><b>Помощь в управлении</b></p>
+	<p align="justify">При запуске программы, перед вами открывается загрузочное окно с титульным листом проекта.</p>
+	<p align="justify">Второе загруженное окно - главное окно приложения, изменить вид на установку можно с помощью колесика мышки <i>(увеличение, уменьшение)</i> и с помощье левой кнопки мыши <i>(нажать левую кнопку мыши и перемещая мышь изменить угол обзора)</i>. На вкладке графики предоставлены графики изменения различных величин, с помощью колесика мышки можно изменять его масштаб.</p>
+	<p class="spacer"></p>
+	<p class="spacer"></p>
+</body>
+</html>
+
