@@ -210,6 +210,8 @@ bool MilkshapeModel::loadModelData(const QString & filename)
         m_pMaterials[i].m_pTextureFilename = new char[7+strlen(pMaterial->m_texture)+1];
         strcpy(m_pMaterials[i].m_pTextureFilename, ":/data/");
         strcpy(m_pMaterials[i].m_pTextureFilename+7, pMaterial->m_texture);
+        // При компиляции используются текстуры в PNG-8 для экономии места
+        strcpy(m_pMaterials[i].m_pTextureFilename+7+strlen(pMaterial->m_texture)-3, "png");
         pPtr += sizeof(MS3DMaterial);
     }
 
