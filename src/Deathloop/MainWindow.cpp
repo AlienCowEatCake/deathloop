@@ -98,21 +98,21 @@ MainWindow::MainWindow(QWidget *parent) :
     // =======
     // Заполнение параметров по умолчанию
     // угол наклона 60 градусов
-    m_ui->horizontalSlider_5->setValue(60);
+    m_ui->horizontalSliderAngle->setValue(60);
     // длина 6 м
-    m_ui->horizontalSlider->setValue(6);
+    m_ui->horizontalSliderLength->setValue(6);
     // радиус петли 2 м
-    m_ui->horizontalSlider_2->setValue(20);
+    m_ui->horizontalSliderLoopRadius->setValue(20);
     // радиус шара 0.3 м
-    m_ui->horizontalSlider_3->setValue(3);
+    m_ui->horizontalSliderSphereRadius->setValue(3);
     // скорость эксперимента 100%
-    m_ui->horizontalSlider_4->setValue(100);
+    m_ui->horizontalSliderSpeed->setValue(100);
     // Анимация вращения шарика
-    m_ui->action_ball_animation->setChecked(true);
+    m_ui->actionBallAnimation->setChecked(true);
     // =======
 
     // О Qt
-    connect(m_ui->action_about_qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
+    connect(m_ui->actionAboutQt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
 
     // Соединяем графики друг с другом, чтобы они могли сообщать об изменении настроек
     connect(m_speedWindow, SIGNAL(settingsChanged()), m_angularWindow, SLOT(onSettingsChanged()));
@@ -233,9 +233,9 @@ void MainWindow::updateTranslations(QString language)
 
     // У кнопки старт/пауза текст зависит от состояния
     if(m_physicalController->currentState() == PhysicalController::SimulationRunning)
-        m_ui->pushButton_2->setText(tr("Stop"));
+        m_ui->pushButtonStart->setText(tr("Stop"));
     else
-        m_ui->pushButton_2->setText(tr("Start"));
+        m_ui->pushButtonStart->setText(tr("Start"));
 
     // Перегрузим ресурсы в окнах
     setWindowTitle(trUtf8("Мертвая петля"));
@@ -260,121 +260,34 @@ MainWindow::~MainWindow()
     delete m_ui;
 }
 
-void MainWindow::on_action_3_triggered()
+/// @brief Обработчик события закрытия окна
+void MainWindow::closeEvent(QCloseEvent *)
 {
-    m_speedWindow->setHidden(!m_speedWindow->isHidden());
+    delete m_speedWindow;
+    delete m_angularWindow;
+    delete m_heightWindow;
+    delete m_helpWindow;
+    delete m_authorsWindow;
+    delete m_licenseWindow;
+    delete m_splashWindow;
 }
 
-void MainWindow::on_action_2_triggered()
+/// @brief Слот на обновление времени на дисплее
+void MainWindow::updateLcdDisplay()
 {
-    m_authorsWindow->setHidden(!m_authorsWindow->isHidden());
+    QString str;
+    str.setNum(m_physicalController->currentTime() / 1000.0, 10, 2);
+    m_ui->lcdNumber->display(str);
 }
 
-void MainWindow::on_action_triggered()
-{
-    m_helpWindow->setHidden(!m_helpWindow->isHidden());
-}
-
-void MainWindow::on_action_7_triggered()
-{
-    m_licenseWindow->setHidden(!m_licenseWindow->isHidden());
-}
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    switch(m_physicalController->currentState())
-    {
-    case PhysicalController::SimulationNotRunning:
-        m_ui->horizontalSlider->setEnabled(false);
-        m_ui->horizontalSlider_2->setEnabled(false);
-        m_ui->horizontalSlider_3->setEnabled(false);
-        m_ui->horizontalSlider_5->setEnabled(false);
-        m_ui->pushButton_2->setText(tr("Stop"));
-        m_physicalController->startSimulation();
-        break;
-    case PhysicalController::SimulationPaused:
-        m_ui->pushButton_2->setText(tr("Stop"));
-        m_physicalController->resumeSimulation();
-        break;
-    case PhysicalController::SimulationRunning:
-        m_ui->pushButton_2->setText(tr("Start"));
-        m_physicalController->pauseSimulation();
-    }
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    switch(m_physicalController->currentState())
-    {
-    case PhysicalController::SimulationRunning:
-    case PhysicalController::SimulationPaused:
-        m_physicalController->stopSimulation();
-        m_ui->horizontalSlider->setEnabled(true);
-        m_ui->horizontalSlider_2->setEnabled(true);
-        m_ui->horizontalSlider_3->setEnabled(true);
-        m_ui->horizontalSlider_5->setEnabled(true);
-        m_ui->pushButton_2->setText(tr("Start"));
-        m_ui->pushButton_2->setEnabled(true);
-        m_ui->lcdNumber->display(0);
-        m_ui->widget->updateGL();
-        break;
-    case PhysicalController::SimulationNotRunning:
-        break;
-    }
-}
-
-void MainWindow::on_horizontalSlider_4_valueChanged(int value)
-{
-    m_ui->label_11->setText(QString::number(value));
-    m_physicalController->setSimulationSpeed(value / 100.0);
-    m_ui->widget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_3_valueChanged(int value)
-{
-    double value1 = value / 10.0;
-    m_ui->label_9->setText(QString::number(value1));
-    m_physicalController->action().set_SphereR(value1);
-    m_physicalController->resetPhysicalEngine();
-    updateGraphWindows();
-    m_ui->widget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_2_valueChanged(int value)
-{
-    double value1 = value / 10.0;
-    m_ui->label_10->setText(QString::number(value1));
-    m_physicalController->action().set_LoopR(value1);
-    m_physicalController->resetPhysicalEngine();
-    updateGraphWindows();
-    m_ui->widget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_valueChanged(int value)
-{
-    m_ui->label_8->setText(QString::number(value));
-    m_physicalController->action().set_FirstLength(value);
-    m_physicalController->resetPhysicalEngine();
-    updateGraphWindows();
-    m_ui->widget->updateGL();
-}
-
-void MainWindow::on_horizontalSlider_5_valueChanged(int value)
-{
-    m_ui->label->setText(QString::number(value));
-    m_physicalController->action().set_BetaAngle(0.01745329251994329576923690768489 * value);
-    m_physicalController->resetPhysicalEngine();
-    updateGraphWindows();
-    m_ui->widget->updateGL();
-}
-
+/// @brief Слот на проверку текущего состояния системы
 void MainWindow::checkSimulationState()
 {
     Action::BallState status = m_physicalController->action().get_State();
     if(status == Action::StateNormal)
         return;
     m_physicalController->pauseSimulation();
-    m_ui->pushButton_2->setEnabled(false);
+    m_ui->pushButtonStart->setEnabled(false);
     if(status == Action::StateFinished)
         return;
 
@@ -400,33 +313,52 @@ void MainWindow::checkSimulationState()
     messageBox.exec();
 }
 
-void MainWindow::on_action_4_triggered()
+/// @brief Слот на нажатие кнопки старт/пауза
+void MainWindow::on_pushButtonStart_clicked()
 {
-    m_angularWindow->setHidden(!m_angularWindow->isHidden());
+    switch(m_physicalController->currentState())
+    {
+    case PhysicalController::SimulationNotRunning:
+        m_ui->horizontalSliderLength->setEnabled(false);
+        m_ui->horizontalSliderLoopRadius->setEnabled(false);
+        m_ui->horizontalSliderSphereRadius->setEnabled(false);
+        m_ui->horizontalSliderAngle->setEnabled(false);
+        m_ui->pushButtonStart->setText(tr("Stop"));
+        m_physicalController->startSimulation();
+        break;
+    case PhysicalController::SimulationPaused:
+        m_ui->pushButtonStart->setText(tr("Stop"));
+        m_physicalController->resumeSimulation();
+        break;
+    case PhysicalController::SimulationRunning:
+        m_ui->pushButtonStart->setText(tr("Start"));
+        m_physicalController->pauseSimulation();
+    }
 }
 
-void MainWindow::on_action_5_triggered()
+/// @brief Слот на нажатие кнопки стоп
+void MainWindow::on_pushButtonStop_clicked()
 {
-    m_heightWindow->setHidden(!m_heightWindow->isHidden());
+    switch(m_physicalController->currentState())
+    {
+    case PhysicalController::SimulationRunning:
+    case PhysicalController::SimulationPaused:
+        m_physicalController->stopSimulation();
+        m_ui->horizontalSliderLength->setEnabled(true);
+        m_ui->horizontalSliderLoopRadius->setEnabled(true);
+        m_ui->horizontalSliderSphereRadius->setEnabled(true);
+        m_ui->horizontalSliderAngle->setEnabled(true);
+        m_ui->pushButtonStart->setText(tr("Start"));
+        m_ui->pushButtonStart->setEnabled(true);
+        m_ui->lcdNumber->display(0);
+        m_ui->widget->updateGL();
+        break;
+    case PhysicalController::SimulationNotRunning:
+        break;
+    }
 }
 
-void MainWindow::on_action_ball_animation_triggered()
-{
-    m_ui->widget->setBallAnimated(m_ui->action_ball_animation->isChecked());
-}
-
-/// @brief Обработчик события закрытия окна
-void MainWindow::closeEvent(QCloseEvent *)
-{
-    delete m_speedWindow;
-    delete m_angularWindow;
-    delete m_heightWindow;
-    delete m_helpWindow;
-    delete m_authorsWindow;
-    delete m_licenseWindow;
-    delete m_splashWindow;
-}
-
+/// @brief Функция, вызывающая обновление всех графиков
 void MainWindow::updateGraphWindows()
 {
     m_speedWindow->update();
@@ -434,12 +366,96 @@ void MainWindow::updateGraphWindows()
     m_heightWindow->update();
 }
 
-/// @brief Слот на обновление времени на дисплее
-void MainWindow::updateLcdDisplay()
+/// @brief Слот на включение/отключение анимации вращения шарика из меню
+void MainWindow::on_actionBallAnimation_triggered()
 {
-    QString str;
-    str.setNum(m_physicalController->currentTime() / 1000.0, 10, 2);
-    m_ui->lcdNumber->display(str);
+    m_ui->widget->setBallAnimated(m_ui->actionBallAnimation->isChecked());
+}
+
+/// @brief Слот на открытие графика скорости из меню
+void MainWindow::on_actionSpeed_triggered()
+{
+    m_speedWindow->setHidden(!m_speedWindow->isHidden());
+}
+
+/// @brief Слот на открытие графика угловой скорости из меню
+void MainWindow::on_actionAngular_triggered()
+{
+    m_angularWindow->setHidden(!m_angularWindow->isHidden());
+}
+
+/// @brief Слот на открытие графика высоты из меню
+void MainWindow::on_actionHeight_triggered()
+{
+    m_heightWindow->setHidden(!m_heightWindow->isHidden());
+}
+
+/// @brief Слот на изменение ползунка угла наклона первого сегмента
+void MainWindow::on_horizontalSliderAngle_valueChanged(int value)
+{
+    m_ui->labelAngle->setText(QString::number(value));
+    m_physicalController->action().set_BetaAngle(0.01745329251994329576923690768489 * value);
+    m_physicalController->resetPhysicalEngine();
+    updateGraphWindows();
+    m_ui->widget->updateGL();
+}
+
+/// @brief Слот на изменение ползунка длины первого сегмента
+void MainWindow::on_horizontalSliderLength_valueChanged(int value)
+{
+    m_ui->labelLength->setText(QString::number(value));
+    m_physicalController->action().set_FirstLength(value);
+    m_physicalController->resetPhysicalEngine();
+    updateGraphWindows();
+    m_ui->widget->updateGL();
+}
+
+/// @brief Слот на изменение ползунка радиуса петли
+void MainWindow::on_horizontalSliderLoopRadius_valueChanged(int value)
+{
+    double value1 = value / 10.0;
+    m_ui->labelLoopRadius->setText(QString::number(value1));
+    m_physicalController->action().set_LoopR(value1);
+    m_physicalController->resetPhysicalEngine();
+    updateGraphWindows();
+    m_ui->widget->updateGL();
+}
+
+/// @brief Слот на изменение ползунка радиуса шарика
+void MainWindow::on_horizontalSliderSphereRadius_valueChanged(int value)
+{
+    double value1 = value / 10.0;
+    m_ui->labelSphereRadius->setText(QString::number(value1));
+    m_physicalController->action().set_SphereR(value1);
+    m_physicalController->resetPhysicalEngine();
+    updateGraphWindows();
+    m_ui->widget->updateGL();
+}
+
+/// @brief Слот на изменение ползунка скорости эксперимента
+void MainWindow::on_horizontalSliderSpeed_valueChanged(int value)
+{
+    m_ui->labelSpeed->setText(QString::number(value));
+    m_physicalController->setSimulationSpeed(value / 100.0);
+    m_ui->widget->updateGL();
+}
+
+/// @brief Слот на открытие окна "О программе" из меню
+void MainWindow::on_actionAbout_triggered()
+{
+    m_helpWindow->setHidden(!m_helpWindow->isHidden());
+}
+
+/// @brief Слот на открытие окна "Разработчики" из меню
+void MainWindow::on_actionAuthors_triggered()
+{
+    m_authorsWindow->setHidden(!m_authorsWindow->isHidden());
+}
+
+/// @brief Слот на открытие окна "Лицензия" из меню
+void MainWindow::on_actionLicense_triggered()
+{
+    m_licenseWindow->setHidden(!m_licenseWindow->isHidden());
 }
 
 /// @brief Слот на включение английского языка из меню

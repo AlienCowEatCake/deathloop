@@ -53,38 +53,41 @@ protected:
 
 private slots:
 
-    void on_action_triggered();
-
-    void on_action_2_triggered();
-
-    void on_action_3_triggered();
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_horizontalSlider_4_valueChanged(int value);
-
-    void on_horizontalSlider_3_valueChanged(int value);
-
-    void on_horizontalSlider_2_valueChanged(int value);
-
-    void on_horizontalSlider_valueChanged(int value);
-
-    void on_horizontalSlider_5_valueChanged(int value);
-
-    void checkSimulationState();
-
-    void on_action_4_triggered();
-
-    void on_action_5_triggered();
-
-    void on_action_7_triggered();
-
-    void on_action_ball_animation_triggered();
-
     /// @brief Слот на обновление времени на дисплее
     void updateLcdDisplay();
+    /// @brief Слот на проверку текущего состояния системы
+    void checkSimulationState();
+    /// @brief Слот на нажатие кнопки старт/пауза
+    void on_pushButtonStart_clicked();
+    /// @brief Слот на нажатие кнопки стоп
+    void on_pushButtonStop_clicked();
+    /// @brief Слот на включение/отключение анимации вращения шарика из меню
+    void on_actionBallAnimation_triggered();
+
+    /// @brief Слот на открытие графика скорости из меню
+    void on_actionSpeed_triggered();
+    /// @brief Слот на открытие графика угловой скорости из меню
+    void on_actionAngular_triggered();
+    /// @brief Слот на открытие графика высоты из меню
+    void on_actionHeight_triggered();
+
+    /// @brief Слот на изменение ползунка угла наклона первого сегмента
+    void on_horizontalSliderAngle_valueChanged(int value);
+    /// @brief Слот на изменение ползунка длины первого сегмента
+    void on_horizontalSliderLength_valueChanged(int value);
+    /// @brief Слот на изменение ползунка радиуса петли
+    void on_horizontalSliderLoopRadius_valueChanged(int value);
+    /// @brief Слот на изменение ползунка радиуса шарика
+    void on_horizontalSliderSphereRadius_valueChanged(int value);
+    /// @brief Слот на изменение ползунка скорости эксперимента
+    void on_horizontalSliderSpeed_valueChanged(int value);
+
+    /// @brief Слот на открытие окна "О программе" из меню
+    void on_actionAbout_triggered();
+    /// @brief Слот на открытие окна "Разработчики" из меню
+    void on_actionAuthors_triggered();
+    /// @brief Слот на открытие окна "Лицензия" из меню
+    void on_actionLicense_triggered();
 
     /// @brief Слот на включение английского языка из меню
     void on_actionEnglish_triggered();
@@ -100,6 +103,7 @@ private:
     /// @todo Это не особо рабочая заготовка, надо переписать
     void updateTranslations(QString language = QString());
 
+    /// @brief Функция, вызывающая обновление всех графиков
     void updateGraphWindows();
 
     Ui::MainWindow *m_ui;
