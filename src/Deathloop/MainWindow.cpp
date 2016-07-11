@@ -239,14 +239,14 @@ void MainWindow::updateTranslations(QString language)
 
     // Перегрузим ресурсы в окнах
     setWindowTitle(trUtf8("Мертвая петля"));
-    m_speedWindow->setLabels("Скорость шара", "t, c", "v, м/с");
-    m_angularWindow->setLabels("Угловая скорость шара", "t, c", "w, рад/с");
-    m_heightWindow->setLabels("Изменение высоты (y)", "t, c", "y, м");
-    m_helpWindow->setTitle("О программе");
+    m_speedWindow->setLabels(trUtf8("Скорость шара"), trUtf8("t, c"), trUtf8("v, м/с"));
+    m_angularWindow->setLabels(trUtf8("Угловая скорость шара"), trUtf8("t, c"), trUtf8("w, рад/с"));
+    m_heightWindow->setLabels(trUtf8("Изменение высоты (y)"), trUtf8("t, c"), trUtf8("y, м"));
+    m_helpWindow->setTitle(trUtf8("О программе"));
     m_helpWindow->loadHtml(":/html/help_ru.html");
-    m_authorsWindow->setTitle("Авторы");
+    m_authorsWindow->setTitle(trUtf8("Авторы"));
     m_authorsWindow->loadHtml(":/html/author_ru.html");
-    m_licenseWindow->setTitle("Лицензия");
+    m_licenseWindow->setTitle(trUtf8("Лицензия"));
     m_licenseWindow->loadHtml(":/html/license_ru.html");
     m_splashWindow->setPixmap(":/mres/splash.png");
     m_splashWindow->setTitle(trUtf8("Мертвая петля"));
