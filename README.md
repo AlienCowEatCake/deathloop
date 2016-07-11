@@ -21,7 +21,7 @@
 
 В рамках данного проекта мы моделируем движение шарика с качением без скольжения в «мёртвой петле», образованной прямоугольным желобом.
 
-> ![image](src/resources/help/image001.png)
+> ![image](src/Deathloop/resources/html/help/image001.png)
 >
 > *траектория движения центра шарика при прохождении петли*
 
@@ -35,13 +35,13 @@
 
 Поскольку мы имеем дело с качением, для решения задачи нам необходимо составить уравнение динамики вращательного движения твёрдого тела относительно оси вращения.
 
-> ![M=I*dω/dt](src/resources/help/pic1.PNG)
+> ![M=I*dω/dt](src/Deathloop/resources/html/help/pic1.PNG)
 
 Необходимо вычислить момент инерции. Рассмотрим вращение шарика относительно неподвижной оси, совпадающей в данный момент времени с мгновенной осью вращения. Нам известен момент инерции шарика относительно оси, проходящей через центр масс. Поэтому мы можем воспользоваться теоремой Штейнера, если найдём расстояние между осями:
 
-> ![image](src/resources/help/image002.png)
+> ![image](src/Deathloop/resources/html/help/image002.png)
 >
-> ![h=r/sqrt(2)](src/resources/help/image004.png)
+> ![h=r/sqrt(2)](src/Deathloop/resources/html/help/image004.png)
 >
 > *Поперечное сечение шарика и желоба*
 
@@ -49,38 +49,39 @@
 
 Воспользуемся теоремой Штейнера.
 
-> ![I=(2/5)*m*r^2+m*h^2](src/resources/help/image006.png)
+> ![I=(2/5)*m*r^2+m*h^2](src/Deathloop/resources/html/help/image006.png)
 
 Теперь рассмотрим первый участок движения шарика:
 
 Относительно данной оси в уравнении динамики вращательного движения твёрдого тела ненулевым является только момент силы тяжести.
 
-> ![M_gr=m*g*h*sin(β)](src/resources/help/sn1.PNG)
+> ![M_gr=m*g*h*sin(β)](src/Deathloop/resources/html/help/sn1.PNG)
 
 Мы можем вычислить характеристики шарика:
 
-> ![I*ε=M_gr -> ε=M_gr/I](src/resources/help/sn2.PNG)
+> ![I*ε=M_gr -> ε=M_gr/I](src/Deathloop/resources/html/help/sn2.PNG)
 >
-> ![a=ε*h, x=x_0+g*t^2*sin(β)*cos(β)/3.6, y=y_0-g*t^2*sin(β)*sin(β)/3.6, v_x=g*t*sin(β)*cos(β)/1.8, v_y=g*t*sin(β)*sin(β)/1.8, v=sqrt(v_x^2+v_y^2)](src/resources/help/image012.png)
+> ![a=ε*h, x=x_0+g*t^2*sin(β)*cos(β)/3.6, y=y_0-g*t^2*sin(β)*sin(β)/3.6, v_x=g*t*sin(β)*cos(β)/1.8, v_y=g*t*sin(β)*sin(β)/1.8, v=sqrt(v_x^2+v_y^2)](src/Deathloop/resources/html/help/image012.png)
 
 На втором участке при расчёте углового ускорения шарика и мгновенного ускорения поступаем аналогично. Движение рассматриваем как движение по окружности (пунктир на рисунке соответствует траектории движения центра шарика).
 
 Угол α изменяется от – β до 2π
 
-> ![x=(R-r*sqrt(2))*sin(α)+(L*cos(β)+R*sin(β)), y=-(R-r*sqrt(2))*cos(α)+R](src/resources/help/image014.png)
+> ![x=(R-r*sqrt(2))*sin(α)+(L*cos(β)+R*sin(β)), y=-(R-r*sqrt(2))*cos(α)+R](src/Deathloop/resources/html/help/image014.png)
 >
-> ![a=(-5/9)*g*sin(α), ε_tr=a/(R-r*sqrt(2)), y=-(R-r*sqrt(2))*cos(α)+R](src/resources/help/sn3.PNG)
+> ![a=(-5/9)*g*sin(α), ε_tr=a/(R-r*sqrt(2)), y=-(R-r*sqrt(2))*cos(α)+R](src/Deathloop/resources/html/help/sn3.PNG)
 
-Так как ![α=f(ε(α),ω)](src/resources/help/image018.png), найдём α при помощи метода Эйлера. Реализация его алгоритма находится непосредственно в коде.
+Так как ![α=f(ε(α),ω)](src/Deathloop/resources/html/help/image018.png), найдём α при помощи метода Эйлера. Реализация его алгоритма находится непосредственно в коде.
 
-> ![v=ω*(R-r*sqrt(2))](src/resources/help/image020.png)
+> ![v=ω*(R-r*sqrt(2))](src/Deathloop/resources/html/help/image020.png)
 
 Третий участок отличается от второго смещением по ещё одной оси координат (необходимо для движения именно по петле, а не по замкнутой окружности).
 
 Движение по последнему участку:
 
-> ![x=L*cos(β)+R*sin(β)+v*t](src/resources/help/image022.png)
+> ![x=L*cos(β)+R*sin(β)+v*t](src/Deathloop/resources/html/help/image022.png)
 
 Случай падения находим, если выполняется:
 
-> ![v^2/(R-r/2)<g*cos(α+π)](src/resources/help/image024.png)
+> ![v^2/(R-r/2)<g*cos(α+π)](src/Deathloop/resources/html/help/image024.png)
+

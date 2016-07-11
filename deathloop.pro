@@ -79,7 +79,7 @@ macx {
 RESOURCES += \
     src/Deathloop/resources-old/mres.qrc \
     src/Deathloop/resources/html/html.qrc \
-    src/Deathloop/resources/help/help.qrc \
+    src/Deathloop/resources/html/help/help.qrc \
     src/Deathloop/resources/models/models.qrc \
     src/Deathloop/resources/menuicons/menuicons.qrc \
     src/Deathloop/resources/translations/translations.qrc
