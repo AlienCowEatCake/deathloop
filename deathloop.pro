@@ -74,6 +74,8 @@ macx {
     } else {
         RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-macosx.qrc
     }
+    TARGET = "Deathloop"
+    QMAKE_CXXFLAGS += -Wno-invalid-constexpr
 }
 
 RESOURCES += \
