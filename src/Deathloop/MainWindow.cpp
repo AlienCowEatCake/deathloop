@@ -36,17 +36,15 @@
 #endif
 #include <QMessageBox>
 #include <QTranslator>
+#include <QLibraryInfo>
 #include <QPair>
-#include <QMenu>
 #include <QSettings>
 #include <QLocale>
 #include <QResizeEvent>
-#include <QObject>
-#include <QFont>
-#include <QFontDatabase>
 
 #include "widgets/HtmlWindow/HtmlWindow.h"
 #include "widgets/SplashScreenWindow/SplashScreenWindow.h"
+#include "utils/Workarounds.h"
 #include "GraphWindowSpeed.h"
 #include "GraphWindowAngular.h"
 #include "GraphWindowHeight.h"
@@ -153,68 +151,14 @@ MainWindow::MainWindow(QWidget *parent) :
     updateTranslations();
 }
 
-/// @brief Исправить отображение локализованных шрифтов под Windows
-void MainWindow::fontsFix(const QString & language)
-{
-#if defined (Q_OS_WIN)
-
-    // Отображение название языка -> соответствующая ему WritingSystem
-    static QList<QPair<QString, QFontDatabase::WritingSystem> > writingSystemMap =
-            QList<QPair<QString, QFontDatabase::WritingSystem> >()
-            << qMakePair(QString("en"), QFontDatabase::Latin)
-            << qMakePair(QString("ru"), QFontDatabase::Cyrillic);
-
-    // Найдем WritingSystem для текущего языка
-    QFontDatabase::WritingSystem currentWritingSystem = QFontDatabase::Any;
-    for(QList<QPair<QString, QFontDatabase::WritingSystem> >::Iterator it = writingSystemMap.begin(); it != writingSystemMap.end(); ++it)
-    {
-        if(it->first == language)
-        {
-            currentWritingSystem = it->second;
-            break;
-        }
-    }
-
-    // Шрифт стандартный, по умолчанию
-    static QFont defaultFont = qApp->font();
-    // Шрифт Tahoma, если стандартный не поддерживает выбранный язык
-    QFont fallbackFont = defaultFont;
-    fallbackFont.setFamily("Tahoma");
-
-    // Проверим, умеет ли стандартный шрифт писать на новом языке
-    static QFontDatabase fontDatabase;
-    if(!fontDatabase.families(currentWritingSystem).contains(defaultFont.family(), Qt::CaseInsensitive))
-        qApp->setFont(fallbackFont);   // Если не умеет - заменим на Tahoma
-    else
-        qApp->setFont(defaultFont);    // Если умеет, то вернем его обратно
-
-#if defined (USE_WIN98_WORKAROUNDS)
-    // Для Win98 форсированно заменяем шрифты на Tahoma для всех не-английских локалей
-    static DWORD dwVersion = (DWORD)(LOBYTE(LOWORD(GetVersion())));
-    if(dwVersion <= 4)
-    {
-        if(language != "en")
-            qApp->setFont(fallbackFont);
-        else
-            qApp->setFont(defaultFont);
-    }
-#endif
-
-#else
-
-    Q_UNUSED(language);
-
-#endif
-}
-
 /// @brief Функция для применения локализации
 /// @todo Это не особо рабочая заготовка, надо переписать
 void MainWindow::updateTranslations(QString language)
 {
     // Отображение название языка -> соответствующая ему менюшка
     static QList<QPair<QString, QAction *> > languagesMap = QList<QPair<QString, QAction *> >()
-            << qMakePair(QString("en"), m_ui->actionEnglish)
-            << qMakePair(QString("ru"), m_ui->actionRussian);
+            << qMakePair(QString::fromLatin1("en"), m_ui->actionEnglish)
+            << qMakePair(QString::fromLatin1("ru"), m_ui->actionRussian);
 
     // Определим системную локаль
     static QString systemLang;
@@ -230,26 +174,31 @@ void MainWindow::updateTranslations(QString language)
             }
         }
         if(systemLang.isEmpty())
-            systemLang = "en";
+            systemLang = QString::fromLatin1("en");
     }
 
     // Посмотрим в настройки, не сохранен ли случайно в них язык
     QSettings settings;
     if(language.isEmpty())
-        language = settings.value("Language", systemLang).toString();
+        language = settings.value(QString::fromLatin1("Language"), systemLang).toString();
     else
-        settings.setValue("Language", language);
+        settings.setValue(QString::fromLatin1("Language"), language);
 
     // Удалим старый перевод, установим новый
-    static QTranslator translator;
-    if(!translator.isEmpty())
-        qApp->removeTranslator(&translator);
-    translator.load(QString(":/translations/%1").arg(language));
-    qApp->installTranslator(&translator);
+    static QTranslator qtTranslator;
+    static QTranslator appTranslator;
+    if(!qtTranslator.isEmpty())
+        qApp->removeTranslator(&qtTranslator);
+    if(!appTranslator.isEmpty())
+        qApp->removeTranslator(&appTranslator);
+    qtTranslator.load(QString::fromLatin1("qt_%1").arg(language), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    appTranslator.load(QString::fromLatin1(":/translations/%1").arg(language));
+    qApp->installTranslator(&qtTranslator);
+    qApp->installTranslator(&appTranslator);
     m_ui->retranslateUi(this);
 
     // Пофиксим шрифты
-    fontsFix(language);
+    Workarounds::FontsFix(language);
 
     // Пробежим по меню и проставим галочку на нужном нам языке и снимем с остальных
     for(QList<QPair<QString, QAction *> >::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
@@ -267,12 +216,12 @@ void MainWindow::updateTranslations(QString language)
     m_angularWindow->setLabels(trUtf8("Угловая скорость шара"), trUtf8("t, c"), trUtf8("w, рад/с"));
     m_heightWindow->setLabels(trUtf8("Изменение высоты (y)"), trUtf8("t, c"), trUtf8("y, м"));
     m_helpWindow->setTitle(trUtf8("О программе"));
-    m_helpWindow->loadHtml(":/html/help_ru.html");
+    m_helpWindow->loadHtml(QString::fromLatin1(":/html/help_ru.html"));
     m_authorsWindow->setTitle(trUtf8("Авторы"));
-    m_authorsWindow->loadHtml(":/html/author_ru.html");
+    m_authorsWindow->loadHtml(QString::fromLatin1(":/html/author_ru.html"));
     m_licenseWindow->setTitle(trUtf8("Лицензия"));
-    m_licenseWindow->loadHtml(":/html/license_ru.html");
-    m_splashWindow->setPixmap(":/mres/splash.png");
+    m_licenseWindow->loadHtml(QString::fromLatin1(":/html/license_ru.html"));
+    m_splashWindow->setPixmap(QString::fromLatin1(":/mres/splash.png"));
     m_splashWindow->setTitle(trUtf8("Мертвая петля"));
 
     // Также следует пересчитать геометрию виждетов
@@ -485,12 +434,12 @@ void MainWindow::on_actionLicense_triggered()
 /// @brief Слот на включение английского языка из меню
 void MainWindow::on_actionEnglish_triggered()
 {
-    updateTranslations("en");
+    updateTranslations(QString::fromLatin1("en"));
 }
 
 /// @brief Слот на включение русского языка из меню
 void MainWindow::on_actionRussian_triggered()
 {
-    updateTranslations("ru");
+    updateTranslations(QString::fromLatin1("ru"));
 }
 

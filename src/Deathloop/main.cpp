@@ -24,10 +24,13 @@
 #include <QGLFormat>
 #endif
 #include <QApplication>
+#include <QIcon>
+#include "utils/Workarounds.h"
 #include "MainWindow.h"
 
 int main(int argc, char** argv)
 {
+    Workarounds::HighDPIFix();
 #if !defined (USE_SWRAST)
     QGLFormat fmt;
     fmt.setSampleBuffers(true);
@@ -36,12 +39,12 @@ int main(int argc, char** argv)
 #endif
 
     QApplication app(argc, argv);
-    app.setOrganizationDomain("fami.codefreak.ru");
-    app.setOrganizationName("fami_net_team");
-    app.setApplicationName("deathloop");
-    app.setApplicationVersion("1.0");
+    app.setOrganizationDomain(QString::fromLatin1("fami.codefreak.ru"));
+    app.setOrganizationName(QString::fromLatin1("fami_net_team"));
+    app.setApplicationName(QString::fromLatin1("deathloop"));
+    app.setApplicationVersion(QString::fromLatin1("1.0"));
 #if !defined (Q_OS_MAC)
-    app.setWindowIcon(QIcon(":/mres/ball.ico"));
+    app.setWindowIcon(QIcon(QString::fromLatin1(":/mres/ball.ico")));
 #endif
 #if defined (USE_FORCE_GL)
     app.setAttribute(Qt::AA_UseDesktopOpenGL);

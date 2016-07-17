@@ -58,7 +58,7 @@ void ModelTrackS4::resize(float length, float rloop)
         {
             m_pVertices[i].m_location[0] = m_verticlesBackup[i].m_location[0] * tmp1;
             m_pVertices[i].m_location[2] = (m_verticlesBackup[i].m_location[2] + ModelInfo::loopWidth()) * tmp1;
-            if(fabs(m_verticlesBackup[i].m_location[1]) > epsilon)
+            if(std::fabs(m_verticlesBackup[i].m_location[1]) > epsilon)
                 m_pVertices[i].m_location[1] = m_verticlesBackup[i].m_location[1] * length;
             else
                 m_pVertices[i].m_location[1] = m_verticlesBackup[i].m_location[1];

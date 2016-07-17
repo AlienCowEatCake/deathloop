@@ -18,7 +18,7 @@ TARGET = deathloop
 
 INCLUDEPATH += src/Deathloop src/Deathloop-old
 
-#DEFINES += QT_NO_CAST_FROM_ASCII
+DEFINES += QT_NO_CAST_FROM_ASCII
 
 include(src/PhysicalLabCore/PhysicalLabCore.pri)
 

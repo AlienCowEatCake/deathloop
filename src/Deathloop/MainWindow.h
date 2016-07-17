@@ -96,9 +96,6 @@ private slots:
 
 private:
 
-    /// @brief Исправить отображение локализованных шрифтов под Windows
-    void fontsFix(const QString & language);
-
     /// @brief Функция для применения локализации
     /// @todo Это не особо рабочая заготовка, надо переписать
     void updateTranslations(QString language = QString());
