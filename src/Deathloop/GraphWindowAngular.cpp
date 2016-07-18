@@ -21,11 +21,15 @@
 */
 
 #include "GraphWindowAngular.h"
+
+#include <QEvent>
 #include "PhysicalController.h"
 
 GraphWindowAngular::GraphWindowAngular(QWidget *parent) :
     GraphWindowAbstract(false, parent), m_physicalController(NULL)
-{}
+{
+    updateTitle();
+}
 
 void GraphWindowAngular::setPhysicalController(const PhysicalController * physicalController)
 {
@@ -75,5 +79,17 @@ void GraphWindowAngular::update()
     }
 
     repaint();
+}
+
+void GraphWindowAngular::changeEvent(QEvent * event)
+{
+    GraphWindowAbstract::changeEvent(event);
+    if(event->type() == QEvent::LanguageChange)
+        updateTitle();
+}
+
+void GraphWindowAngular::updateTitle()
+{
+    setLabels(trUtf8("Угловая скорость шара"), trUtf8("t, c"), trUtf8("w, рад/с"));
 }
 

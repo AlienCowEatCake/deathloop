@@ -21,11 +21,15 @@
 */
 
 #include "GraphWindowHeight.h"
+
+#include <QEvent>
 #include "PhysicalController.h"
 
 GraphWindowHeight::GraphWindowHeight(QWidget *parent) :
     GraphWindowAbstract(false, parent), m_physicalController(NULL)
-{}
+{
+    updateTitle();
+}
 
 void GraphWindowHeight::setPhysicalController(const PhysicalController * physicalController)
 {
@@ -75,5 +79,17 @@ void GraphWindowHeight::update()
     }
 
     repaint();
+}
+
+void GraphWindowHeight::changeEvent(QEvent * event)
+{
+    GraphWindowAbstract::changeEvent(event);
+    if(event->type() == QEvent::LanguageChange)
+        updateTitle();
+}
+
+void GraphWindowHeight::updateTitle()
+{
+    setLabels(trUtf8("Изменение высоты (y)"), trUtf8("t, c"), trUtf8("y, м"));
 }
 

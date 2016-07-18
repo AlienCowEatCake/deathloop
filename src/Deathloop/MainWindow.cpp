@@ -23,10 +23,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#if defined (Q_OS_WIN) && defined (USE_WIN98_WORKAROUNDS)
-#include <windows.h>
-#endif
-
 #include <cmath>
 #include <cassert>
 #if defined (HAVE_QT5)
@@ -50,6 +46,24 @@
 #include "GraphWindowHeight.h"
 #include "PhysicalController.h"
 #include "ModelInfo.h"
+
+namespace {
+
+const int helpWindowWidth     = 880;
+const int helpWindowHeight    = 540;
+const int authorsWindowWidth  = 670;
+const int authorsWindowHeight = 400;
+const int licenseWindowWidth  = 560;
+const int licenseWindowHeight = 380;
+
+const int sliderAngleDefaultPosition        = 60;   ///< угол наклона 60 градусов
+const int sliderLengthDefaultPosition       = 6;    ///< длина 6 м
+const int sliderLoopRadiusDefaultPosition   = 20;   ///< радиус петли 2 м
+const int sliderSphereRadiusDefaultPosition = 3;    ///< радиус шара 0.3 м
+const int sliderSpeedDefaultPosition        = 100;  ///< скорость эксперимента 100%
+const bool actionBallAnimationDefaultState  = true; ///< анимация вращения шарика
+
+} // namespace
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -92,51 +106,46 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui->lcdNumber->setDecMode();
     m_ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
     // =======
-    m_speedWindow = new GraphWindowSpeed;
+    m_speedWindow = new GraphWindowSpeed(this);
     m_speedWindow->setPhysicalController(m_physicalController);
     m_speedWindow->setHidden(true);
     // =======
-    m_angularWindow = new GraphWindowAngular;
+    m_angularWindow = new GraphWindowAngular(this);
     m_angularWindow->setPhysicalController(m_physicalController);
     m_angularWindow->setHidden(true);
     // =======
-    m_heightWindow = new GraphWindowHeight;
+    m_heightWindow = new GraphWindowHeight(this);
     m_heightWindow->setPhysicalController(m_physicalController);
     m_heightWindow->setHidden(true);
     // =======
-    m_helpWindow = new HtmlWindow;
-    m_helpWindow->setSize(880, 540);
+    m_helpWindow = new HtmlWindow(this);
+    m_helpWindow->setSize(helpWindowWidth, helpWindowHeight);
     m_helpWindow->setScrollBarEnabled();
     m_helpWindow->setHidden(true);
     // =======
-    m_authorsWindow = new HtmlWindow;
+    m_authorsWindow = new HtmlWindow(this);
     m_authorsWindow->setHidden(true);
-    m_authorsWindow->setSize(670, 400);
+    m_authorsWindow->setSize(authorsWindowWidth, authorsWindowHeight);
     // =======
-    m_licenseWindow = new HtmlWindow;
+    m_licenseWindow = new HtmlWindow(this);
     m_licenseWindow->setHidden(true);
-    m_licenseWindow->setSize(560, 380);
+    m_licenseWindow->setSize(licenseWindowWidth, licenseWindowHeight);
     m_licenseWindow->setHidden(true);
     // =======
     // Заполнение параметров по умолчанию
-    // угол наклона 60 градусов
-    m_ui->horizontalSliderAngle->setValue(60);
-    // длина 6 м
-    m_ui->horizontalSliderLength->setValue(6);
-    // радиус петли 2 м
-    m_ui->horizontalSliderLoopRadius->setValue(20);
-    // радиус шара 0.3 м
-    m_ui->horizontalSliderSphereRadius->setValue(3);
-    // скорость эксперимента 100%
-    m_ui->horizontalSliderSpeed->setValue(100);
-    // Анимация вращения шарика
-    m_ui->actionBallAnimation->setChecked(true);
+    m_ui->horizontalSliderAngle->setValue(sliderAngleDefaultPosition);               ///< угол наклона
+    m_ui->horizontalSliderLength->setValue(sliderLengthDefaultPosition);             ///< длина
+    m_ui->horizontalSliderLoopRadius->setValue(sliderLoopRadiusDefaultPosition);     ///< радиус петли
+    m_ui->horizontalSliderSphereRadius->setValue(sliderSphereRadiusDefaultPosition); ///< радиус шара
+    m_ui->horizontalSliderSpeed->setValue(sliderSpeedDefaultPosition);               ///< скорость эксперимента
+    m_ui->actionBallAnimation->setChecked(actionBallAnimationDefaultState);          ///< анимация вращения шарика
     // =======
 
     // О Qt
     connect(m_ui->actionAboutQt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
 
     // Соединяем графики друг с другом, чтобы они могли сообщать об изменении настроек
+    /// @todo Сделать более разумный способ соединения графиков
     connect(m_speedWindow, SIGNAL(settingsChanged()), m_angularWindow, SLOT(onSettingsChanged()));
     connect(m_speedWindow, SIGNAL(settingsChanged()), m_heightWindow, SLOT(onSettingsChanged()));
     connect(m_angularWindow, SIGNAL(settingsChanged()), m_speedWindow, SLOT(onSettingsChanged()));
@@ -145,7 +154,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_heightWindow, SIGNAL(settingsChanged()), m_angularWindow, SLOT(onSettingsChanged()));
 
     // Окно-заставка
-    m_splashWindow = new SplashScreenWindow;
+    m_splashWindow = new SplashScreenWindow(this);
 
     // Переводы и подгрузка ресурсов
     updateTranslations();
@@ -212,14 +221,11 @@ void MainWindow::updateTranslations(QString language)
 
     // Перегрузим ресурсы в окнах
     setWindowTitle(trUtf8("Мертвая петля"));
-    m_speedWindow->setLabels(trUtf8("Скорость шара"), trUtf8("t, c"), trUtf8("v, м/с"));
-    m_angularWindow->setLabels(trUtf8("Угловая скорость шара"), trUtf8("t, c"), trUtf8("w, рад/с"));
-    m_heightWindow->setLabels(trUtf8("Изменение высоты (y)"), trUtf8("t, c"), trUtf8("y, м"));
-    m_helpWindow->setTitle(trUtf8("О программе"));
+    m_helpWindow->setTitle(tr("About"));
     m_helpWindow->loadHtml(QString::fromLatin1(":/html/help_ru.html"));
-    m_authorsWindow->setTitle(trUtf8("Авторы"));
+    m_authorsWindow->setTitle(tr("Credits"));
     m_authorsWindow->loadHtml(QString::fromLatin1(":/html/author_ru.html"));
-    m_licenseWindow->setTitle(trUtf8("Лицензия"));
+    m_licenseWindow->setTitle(tr("License"));
     m_licenseWindow->loadHtml(QString::fromLatin1(":/html/license_ru.html"));
     m_splashWindow->setPixmap(QString::fromLatin1(":/mres/splash.png"));
     m_splashWindow->setTitle(trUtf8("Мертвая петля"));
@@ -231,18 +237,6 @@ void MainWindow::updateTranslations(QString language)
 MainWindow::~MainWindow()
 {
     delete m_ui;
-}
-
-/// @brief Обработчик события закрытия окна
-void MainWindow::closeEvent(QCloseEvent *)
-{
-    delete m_speedWindow;
-    delete m_angularWindow;
-    delete m_heightWindow;
-    delete m_helpWindow;
-    delete m_authorsWindow;
-    delete m_licenseWindow;
-    delete m_splashWindow;
 }
 
 /// @brief Слот на обновление времени на дисплее

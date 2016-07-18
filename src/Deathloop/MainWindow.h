@@ -46,11 +46,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-protected:
-
-    /// @brief Обработчик события закрытия окна
-    void closeEvent(QCloseEvent *);
-
 private slots:
 
     /// @brief Слот на обновление времени на дисплее
