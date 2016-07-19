@@ -86,6 +86,12 @@ RESOURCES += \
     src/Deathloop/resources/menuicons/menuicons.qrc \
     src/Deathloop/resources/translations/translations.qrc
 
+lessThan(QT_MAJOR_VERSION, 5) | !contains(QT, svg) {
+    RESOURCES += src/Deathloop/resources/splash/splash-png.qrc
+} else {
+    RESOURCES += src/Deathloop/resources/splash/splash-svg.qrc
+}
+
 # === Сборочные директории =====================================================
 
 DESTDIR = .
