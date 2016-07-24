@@ -98,7 +98,7 @@ Action::Action(double Ngravity,double NBetaAngle,double NsphereR,double NFirstLe
 /// @brief Метод, вычисляющий положение шарика, его скорость, угловую скорость, ускорение и т. д.
 void Action::Refresh(double Ntime)
 {
-    double t = Ntime/1000.0;
+    t = Ntime/1000.0;
     // CHECKME раньше это было 0.01*ktime
     double dt = t - t_old;
 
