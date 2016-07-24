@@ -108,19 +108,19 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui->lcdNumber->setDecMode();
     m_ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
     // =======
-    m_speedWindow = new GraphWindowSpeed(this);
+    m_speedWindow = new GraphWindowSpeed;
     m_speedWindow->setPhysicalController(m_physicalController);
     m_speedWindow->setHidden(true);
     // =======
-    m_angularWindow = new GraphWindowAngular(this);
+    m_angularWindow = new GraphWindowAngular;
     m_angularWindow->setPhysicalController(m_physicalController);
     m_angularWindow->setHidden(true);
     // =======
-    m_heightWindow = new GraphWindowHeight(this);
+    m_heightWindow = new GraphWindowHeight;
     m_heightWindow->setPhysicalController(m_physicalController);
     m_heightWindow->setHidden(true);
     // =======
-    m_helpWindow = new HtmlWindow(this);
+    m_helpWindow = new HtmlWindow;
     m_helpWindow->setSize(helpWindowWidth, helpWindowHeight);
     m_helpWindow->setScrollBarEnabled();
     m_helpWindow->setHidden(true);
@@ -223,11 +223,11 @@ void MainWindow::updateTranslations(QString language)
     // Перегрузим ресурсы в окнах
     setWindowTitle(trUtf8("Мертвая петля"));
     m_helpWindow->setTitle(tr("About"));
-    m_helpWindow->loadHtml(QString::fromLatin1(":/html/help_ru.html"));
+    m_helpWindow->loadHtml(QString::fromLatin1(":/html/help_%1.html").arg(language));
     m_authorsWindow->setTitle(tr("Credits"));
-    m_authorsWindow->loadHtml(QString::fromLatin1(":/html/author_ru.html"));
+    m_authorsWindow->loadHtml(QString::fromLatin1(":/html/author_%1.html").arg(language));
     m_licenseWindow->setTitle(tr("License"));
-    m_licenseWindow->loadHtml(QString::fromLatin1(":/html/license_ru.html"));
+    m_licenseWindow->loadHtml(QString::fromLatin1(":/html/license_%1.html").arg(language));
 #if defined (QT_SVG_LIB) && (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
     m_splashWindow->setSVG(QString::fromLatin1(":/splash/splash_%1.svg").arg(language));
 #else
@@ -241,7 +241,12 @@ void MainWindow::updateTranslations(QString language)
 
 MainWindow::~MainWindow()
 {
+    delete m_speedWindow;
+    delete m_angularWindow;
+    delete m_heightWindow;
+    delete m_helpWindow;
     delete m_ui;
+    qApp->quit();
 }
 
 /// @brief Слот на обновление времени на дисплее
