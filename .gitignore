@@ -71,6 +71,8 @@ Makefile*
 
 # Binaries
 /deathloop
-/deathloop-*_qt4
-/deathloop-*_qt5
+/deathloop_*.dmg
+
+# OS X garbage
+.DS_Store
 

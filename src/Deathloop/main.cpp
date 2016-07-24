@@ -24,9 +24,20 @@
 #include <QGLFormat>
 #endif
 #include <QApplication>
+#include <QtPlugin>
 #include <QIcon>
 #include "utils/Workarounds.h"
 #include "MainWindow.h"
+
+#if defined (USE_STATIC_QJPEG)
+Q_IMPORT_PLUGIN(qjpeg)
+#endif
+#if defined (USE_STATIC_QTIFF)
+Q_IMPORT_PLUGIN(qtiff)
+#endif
+#if defined (USE_STATIC_QICO)
+Q_IMPORT_PLUGIN(qico)
+#endif
 
 int main(int argc, char** argv)
 {
@@ -34,7 +45,6 @@ int main(int argc, char** argv)
 #if !defined (USE_SWRAST)
     QGLFormat fmt;
     fmt.setSampleBuffers(true);
-    fmt.setSamples(16); // 2, 4, 8, 16
     QGLFormat::setDefaultFormat(fmt);
 #endif
 
@@ -44,15 +54,15 @@ int main(int argc, char** argv)
     app.setApplicationName(QString::fromLatin1("deathloop"));
     app.setApplicationVersion(QString::fromLatin1("1.0"));
 #if !defined (Q_OS_MAC)
-    app.setWindowIcon(QIcon(QString::fromLatin1(":/mres/ball.ico")));
+    app.setWindowIcon(QIcon(QString::fromLatin1(":/icon/ball.ico")));
 #endif
 #if defined (USE_FORCE_GL)
     app.setAttribute(Qt::AA_UseDesktopOpenGL);
 #endif
     // Костыль по мотивам QTBUG-30790, QTBUG-28872, QTBUG-28872
     app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
-    MainWindow w;  // главное окно
-    w.show();
+    MainWindow * w = new MainWindow; // главное окно
+    w->show();
     return app.exec();
 }
 

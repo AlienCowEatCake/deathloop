@@ -25,6 +25,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <QtGlobal>
 #include <QApplication>
 #include <QPaintEvent>
 #include <QInputDialog>
@@ -39,6 +40,13 @@ GraphWindowAbstract::GraphWindowAbstract(bool haveNegativeY, QWidget *parent)
     : QMainWindow(parent),
       m_ui(new Ui::GraphWindowAbstract)
 {
+    if(parent)
+    {
+        // Окно не должно быть поверх родительского окна, оно должно уметь уходить на
+        // задний план, но при этом должно уничтожиться при уничтожении родителя.
+        connect(parent, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
+        setParent(NULL);
+    }
     m_ui->setupUi(this);
     m_scene2D = new Scene2D(haveNegativeY, m_ui->centralwidget);
     setCentralWidget(m_scene2D);
@@ -72,7 +80,7 @@ void GraphWindowAbstract::on_actionGraphColor_triggered()
 {
     QColor oldColor = m_scene2D->plotColor();
     QColor newColor = QColorDialog::getColor(oldColor, this
-#if !defined (HAVE_LESS_THAN_QT45)
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
         , tr("Select Graph Color")
 #endif
         );

@@ -92,7 +92,6 @@ private slots:
 private:
 
     /// @brief Функция для применения локализации
-    /// @todo Это не особо рабочая заготовка, надо переписать
     void updateTranslations(QString language = QString());
 
     /// @brief Функция, вызывающая обновление всех графиков

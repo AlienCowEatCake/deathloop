@@ -61,7 +61,8 @@ TRANSLATIONS += \
 
 win32 {
     RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-windows.qrc
-    RC_FILE += src/Deathloop/resources-old/icon.rc
+    RC_FILE += src/Deathloop/resources/platform/windows/resources.rc
+    DEFINES += NOMINMAX
 }
 
 unix:!macx {
@@ -74,22 +75,43 @@ macx {
     } else {
         RESOURCES += src/Deathloop/resources/html/stylesheet/stylesheet-macosx.qrc
     }
-    TARGET = "Deathloop"
+    QMAKE_INFO_PLIST = src/Deathloop/resources/platform/macosx/Info.plist
+    ICON = src/Deathloop/resources/icon/ball.icns
+    TARGET = "DeathLoop"
     QMAKE_CXXFLAGS += -Wno-invalid-constexpr
 }
 
 RESOURCES += \
-    src/Deathloop/resources-old/mres.qrc \
+    src/Deathloop/resources/icon/icon.qrc \
     src/Deathloop/resources/html/html.qrc \
     src/Deathloop/resources/html/help/help.qrc \
     src/Deathloop/resources/models/models.qrc \
     src/Deathloop/resources/menuicons/menuicons.qrc \
     src/Deathloop/resources/translations/translations.qrc
 
-lessThan(QT_MAJOR_VERSION, 5) | !contains(QT, svg) {
+lessThan(QT_VERSION, 5.4.0) {
     RESOURCES += src/Deathloop/resources/splash/splash-png.qrc
 } else {
+    QT += svg
     RESOURCES += src/Deathloop/resources/splash/splash-svg.qrc
+}
+
+# qmake CONFIG+=use_static_qjpeg
+use_static_qjpeg {
+    QTPLUGIN += qjpeg
+    DEFINES += USE_STATIC_QJPEG
+}
+
+# qmake CONFIG+=use_static_qtiff
+use_static_qtiff {
+    QTPLUGIN += qtiff
+    DEFINES += USE_STATIC_QTIFF
+}
+
+# qmake CONFIG+=use_static_qico
+use_static_qico {
+    QTPLUGIN += qico
+    DEFINES += USE_STATIC_QICO
 }
 
 # === Сборочные директории =====================================================

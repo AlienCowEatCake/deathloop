@@ -25,11 +25,7 @@
 
 #include <cmath>
 #include <cassert>
-#if defined (HAVE_QT5)
-#include <QtWidgets>
-#else
-#include <QtGui>
-#endif
+#include <QtGlobal>
 #include <QMessageBox>
 #include <QTranslator>
 #include <QLibraryInfo>
@@ -72,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     m_ui->setupUi(this);
     setCentralWidget(m_ui->widget);
+    setAttribute(Qt::WA_DeleteOnClose);
 
 #if defined (Q_OS_MAC)
     // В Mac OS X картинок в меню быть не должно
@@ -103,6 +100,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_physicalController->connectToTimer(this, SLOT(updateLcdDisplay()));
     m_physicalController->connectToTimer(this, SLOT(checkSimulationState()));
     // Индкатор времени
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 0))
+    m_ui->lcdNumber->setDigitCount(6);  // Qt 4.6+
+#else
+    m_ui->lcdNumber->setNumDigits(6);   // Deprecated
+#endif
     m_ui->lcdNumber->setDecMode();
     m_ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
     // =======
@@ -161,7 +163,6 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 /// @brief Функция для применения локализации
-/// @todo Это не особо рабочая заготовка, надо переписать
 void MainWindow::updateTranslations(QString language)
 {
     // Отображение название языка -> соответствующая ему менюшка
@@ -227,7 +228,7 @@ void MainWindow::updateTranslations(QString language)
     m_authorsWindow->loadHtml(QString::fromLatin1(":/html/author_ru.html"));
     m_licenseWindow->setTitle(tr("License"));
     m_licenseWindow->loadHtml(QString::fromLatin1(":/html/license_ru.html"));
-#if defined (QT_SVG_LIB) && defined (HAVE_QT5)
+#if defined (QT_SVG_LIB) && (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
     m_splashWindow->setSVG(QString::fromLatin1(":/splash/splash_%1.svg").arg(language));
 #else
     m_splashWindow->setPixmap(QString::fromLatin1(":/splash/splash_%1.png").arg(language));
