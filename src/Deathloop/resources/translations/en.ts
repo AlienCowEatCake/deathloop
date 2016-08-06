@@ -94,17 +94,17 @@
     <message>
         <location filename="../../GraphWindowAngular.cpp" line="93"/>
         <source>Угловая скорость шара</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Angular Velocity of the Ball</translation>
     </message>
     <message>
         <location filename="../../GraphWindowAngular.cpp" line="93"/>
         <source>t, c</source>
-        <translation type="unfinished"></translation>
+        <translation>t, s</translation>
     </message>
     <message>
         <location filename="../../GraphWindowAngular.cpp" line="93"/>
         <source>w, рад/с</source>
-        <translation type="unfinished"></translation>
+        <translation>ω, rad/s</translation>
     </message>
 </context>
 <context>
@@ -112,17 +112,17 @@
     <message>
         <location filename="../../GraphWindowHeight.cpp" line="93"/>
         <source>Изменение высоты (y)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Height (y)</translation>
     </message>
     <message>
         <location filename="../../GraphWindowHeight.cpp" line="93"/>
         <source>t, c</source>
-        <translation type="unfinished"></translation>
+        <translation>t, s</translation>
     </message>
     <message>
         <location filename="../../GraphWindowHeight.cpp" line="93"/>
         <source>y, м</source>
-        <translation type="unfinished"></translation>
+        <translation>y, m</translation>
     </message>
 </context>
 <context>
@@ -130,17 +130,17 @@
     <message>
         <location filename="../../GraphWindowSpeed.cpp" line="93"/>
         <source>Скорость шара</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ball Speed</translation>
     </message>
     <message>
         <location filename="../../GraphWindowSpeed.cpp" line="93"/>
         <source>t, c</source>
-        <translation type="unfinished"></translation>
+        <translation>t, s</translation>
     </message>
     <message>
         <location filename="../../GraphWindowSpeed.cpp" line="93"/>
         <source>v, м/с</source>
-        <translation type="unfinished"></translation>
+        <translation>v, m/s</translation>
     </message>
 </context>
 <context>
@@ -158,7 +158,7 @@
     <message>
         <location filename="../../MainWindow.ui" line="39"/>
         <source>Анимация</source>
-        <translation type="unfinished"></translation>
+        <translation>Animation</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="45"/>
@@ -173,27 +173,27 @@
     <message>
         <location filename="../../MainWindow.ui" line="94"/>
         <source>Наклонный участок</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramp</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="112"/>
         <source>Угол наклона [град]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ramp Angle [°]</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="148"/>
         <source>Длина [м]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lenght [m]</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="184"/>
         <source>Радиус петли [м]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Loop Radius [m]</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="234"/>
         <source>Радиус шара [м]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ball Radius [m]</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="340"/>
@@ -203,17 +203,17 @@
     <message>
         <location filename="../../MainWindow.ui" line="494"/>
         <source>Скорость шара</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ball Speed</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="502"/>
         <source>Угловая скорость шара</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Angular Velocity of the Ball</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="510"/>
         <source>Изменение высоты (y) </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Height (y)</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="478"/>
@@ -238,7 +238,7 @@
     <message>
         <location filename="../../MainWindow.ui" line="540"/>
         <source>Вращение шарика</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ball Rotation</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="548"/>
@@ -279,7 +279,7 @@
         <location filename="../../MainWindow.cpp" line="243"/>
         <location filename="../../MainWindow.cpp" line="255"/>
         <source>Мертвая петля</source>
-        <translation type="unfinished"></translation>
+        <translation>Loop-the-Loop</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="244"/>
@@ -294,33 +294,33 @@
     <message>
         <location filename="../../MainWindow.cpp" line="290"/>
         <source>Статус</source>
-        <translation type="unfinished"></translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="294"/>
         <location filename="../../MainWindow.cpp" line="298"/>
         <source>Шар не смог совершить мертвую петлю</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">The ball could not make a loop</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="295"/>
         <source>Причина: начал катиться обратно</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reason: The ball rolled back</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="299"/>
         <source>Причина: выпал из петли</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reason: The ball dropped out of the loop</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="302"/>
         <source>Ошибка при моделировании</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Error while performing the simulation</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="303"/>
         <source>Попробуйте ввести другие параметры</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Please, try the other settings</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="248"/>
