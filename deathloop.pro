@@ -16,7 +16,7 @@
 TEMPLATE = app
 TARGET = deathloop
 
-INCLUDEPATH += src/Deathloop src/Deathloop-old
+INCLUDEPATH += src/Deathloop
 
 DEFINES += QT_NO_CAST_FROM_ASCII
 

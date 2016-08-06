@@ -77,6 +77,8 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         QAction * action = * it;
         action->setIcon(QIcon());
+        if(action->menuRole() == QAction::TextHeuristicRole)
+            action->setMenuRole(QAction::NoRole);
     }
     // Под Mac OS X из коробки выглядит настолько страшно, что приходится немного стилизовать
     QList<QGroupBox*> allGroupBoxes = findChildren<QGroupBox*>();
@@ -158,6 +160,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // Окно-заставка
     m_splashWindow = new SplashScreenWindow(this);
 
+#if defined(Q_OS_MAC)
+    // Диалог About, используемый в проекте, ни разу не подходит на роль того About, что есть обычно под OS X.
+    // Поэтому сделаем для такого случая отдельный пункт меню, который будет выполнять роль About.
+    QAction * fakeAboutAction = new QAction(this);
+    fakeAboutAction->setMenuRole(QAction::AboutRole);
+    connect(fakeAboutAction, SIGNAL(triggered()), m_splashWindow, SLOT(show()));
+    m_ui->menuHelp->addAction(fakeAboutAction);
+#endif
+
     // Переводы и подгрузка ресурсов
     updateTranslations();
 }
@@ -215,10 +226,18 @@ void MainWindow::updateTranslations(QString language)
         it->second->setChecked(it->first == language);
 
     // У кнопки старт/пауза текст зависит от состояния
-    if(m_physicalController->currentState() == PhysicalController::SimulationRunning)
-        m_ui->pushButtonStart->setText(tr("Stop"));
-    else
+    switch(m_physicalController->currentState())
+    {
+    case PhysicalController::SimulationNotRunning:
         m_ui->pushButtonStart->setText(tr("Start"));
+        break;
+    case PhysicalController::SimulationRunning:
+        m_ui->pushButtonStart->setText(tr("Pause"));
+        break;
+    case PhysicalController::SimulationPaused:
+        m_ui->pushButtonStart->setText(tr("Resume"));
+        break;
+    }
 
     // Перегрузим ресурсы в окнах
     setWindowTitle(trUtf8("Мертвая петля"));
@@ -300,15 +319,15 @@ void MainWindow::on_pushButtonStart_clicked()
         m_ui->horizontalSliderLoopRadius->setEnabled(false);
         m_ui->horizontalSliderSphereRadius->setEnabled(false);
         m_ui->horizontalSliderAngle->setEnabled(false);
-        m_ui->pushButtonStart->setText(tr("Stop"));
+        m_ui->pushButtonStart->setText(tr("Pause"));
         m_physicalController->startSimulation();
         break;
     case PhysicalController::SimulationPaused:
-        m_ui->pushButtonStart->setText(tr("Stop"));
+        m_ui->pushButtonStart->setText(tr("Pause"));
         m_physicalController->resumeSimulation();
         break;
     case PhysicalController::SimulationRunning:
-        m_ui->pushButtonStart->setText(tr("Start"));
+        m_ui->pushButtonStart->setText(tr("Resume"));
         m_physicalController->pauseSimulation();
     }
 }
