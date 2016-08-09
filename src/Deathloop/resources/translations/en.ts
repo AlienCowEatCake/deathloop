@@ -94,7 +94,7 @@
     <message>
         <location filename="../../GraphWindowAngular.cpp" line="93"/>
         <source>Угловая скорость шара</source>
-        <translation type="unfinished">Angular Velocity of the Ball</translation>
+        <translation type="unfinished">Ball Angular Velocity</translation>
     </message>
     <message>
         <location filename="../../GraphWindowAngular.cpp" line="93"/>
@@ -208,7 +208,7 @@
     <message>
         <location filename="../../MainWindow.ui" line="502"/>
         <source>Угловая скорость шара</source>
-        <translation type="unfinished">Angular Velocity of the Ball</translation>
+        <translation type="unfinished">Ball Angular Velocity</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="510"/>
@@ -320,7 +320,7 @@
     <message>
         <location filename="../../MainWindow.cpp" line="303"/>
         <source>Попробуйте ввести другие параметры</source>
-        <translation type="unfinished">Please, try the other settings</translation>
+        <translation type="unfinished">Please try a different combination of initial conditions</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="248"/>
