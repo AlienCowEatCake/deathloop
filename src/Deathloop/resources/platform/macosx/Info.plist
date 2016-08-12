@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>DeathLoop</string>
+	<string>Deathloop</string>
 	<key>CFBundleExecutable</key>
-	<string>DeathLoop</string>
+	<string>Deathloop</string>
 	<key>CFBundleIconFile</key>
 	<string>ball.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>DeathLoop</string>
+	<string>Deathloop</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleVersion</key>

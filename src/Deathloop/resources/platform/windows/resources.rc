@@ -6,11 +6,11 @@ IDI_ICON1 ICON DISCARDABLE "../../icon/ball.ico"
 #define VER_FILEVERSION_STR         "1.0.0.0\0"
 #define VER_PRODUCTVERSION          1,0,0,0
 #define VER_PRODUCTVERSION_STR      "1.0\0"
-#define VER_FILEDESCRIPTION_STR     "DeathLoop"
+#define VER_FILEDESCRIPTION_STR     "Loop the Loop"
 #define VER_INTERNALNAME_STR        "deathloop"
 #define VER_LEGALCOPYRIGHT_STR      "(c) FAMI Net Team, 2011-2016"
 #define VER_ORIGINALFILENAME_STR    "deathloop.exe"
-#define VER_PRODUCTNAME_STR         "DeathLoop"
+#define VER_PRODUCTNAME_STR         "Deathloop"
 #define VER_COMPANYNAME_STR         "FAMI Net Team"
 
 VS_VERSION_INFO VERSIONINFO

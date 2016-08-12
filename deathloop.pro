@@ -77,7 +77,7 @@ macx {
     }
     QMAKE_INFO_PLIST = src/Deathloop/resources/platform/macosx/Info.plist
     ICON = src/Deathloop/resources/icon/ball.icns
-    TARGET = "DeathLoop"
+    TARGET = "Deathloop"
     QMAKE_CXXFLAGS += -Wno-invalid-constexpr
 }
 
