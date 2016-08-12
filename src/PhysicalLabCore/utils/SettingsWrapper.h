@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -20,23 +20,30 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (PHYSICALLABCORE_GLWIDGETIMPL_H_INCLUDED)
-#define PHYSICALLABCORE_GLWIDGETIMPL_H_INCLUDED
+#if !defined (PHYSICALLABCORE_SETTINGSWRAPPER_H_INCLUDED)
+#define PHYSICALLABCORE_SETTINGSWRAPPER_H_INCLUDED
 
-#if !defined (USE_SWRAST)
-#include <QtOpenGL>
-#include <QGLWidget>
-#include "native/GLFunctions.h"
-typedef QGLWidget GLWidgetImpl;
-#else
-#include "software/SWRastWidget.h"
-typedef SWRastWidget GLWidgetImpl;
-#include "software/GLFunctions.h"
-#endif
+#include <QMap>
+#include <QString>
+#include <QVariant>
+#include <QSettings>
 
-#if !defined (GL_MULTISAMPLE)
-#define GL_MULTISAMPLE  0x809D
-#endif
+/// @brief Класс-обертка над настройками, хранит в себе локальную копию настроек
+class SettingsWrapper
+{
+public:
+    SettingsWrapper(const QString &settingsGroup = QString());
+    ~SettingsWrapper();
 
-#endif // PHYSICALLABCORE_GLWIDGETIMPL_H_INCLUDED
+    void setValue(const QString &name, const QVariant &value);
+    QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
+    void saveAll();
+    void reloadAll();
+
+private:
+    mutable QSettings m_settings;
+    mutable QMap<QString, QVariant> m_settingsCache;
+};
+
+#endif // PHYSICALLABCORE_SETTINGSWRAPPER_H_INCLUDED
 

@@ -1,8 +1,8 @@
 /*
    Copyright (C) 2011-2016,
-        Mikhail Alexandrov  <alexandroff.m@gmail.com>
-        Andrey Kurochkin    <andy-717@yandex.ru>
-        Peter Zhigalov      <peter.zhigalov@gmail.com>
+        Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
+        Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
+        Peter S. Zhigalov       <peter.zhigalov@gmail.com>
 
    This file is part of the `PhysicalLabCore' library.
 
@@ -28,6 +28,8 @@
 #include <QVector>
 #include <QColor>
 #include <QSettings>
+
+#include "utils/SettingsWrapper.h"
 
 /// @brief Класс 2D сцены для отрисовки графиков
 class Scene2D : public QWidget
@@ -95,9 +97,13 @@ public:
     /// @brief drawGraph - Обобщённое событие отрисовки графика
     void drawGraph(QPaintDevice * device);
 
+    /// @brief settings - Получить SettingsWrapper
+    SettingsWrapper & settings();
+    const SettingsWrapper & settings() const;
+
 protected:
     /// @brief paintEvent - Событие рисования
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent * event);
 
 private:
     // Коэффициенты масштабирования по осям x и y
@@ -129,11 +135,7 @@ private:
     QPoint toWindow(float x, float y) const;
 
     // Настройки
-    QSettings m_settings;
-    // Функция для записи в настройки графиков
-    void saveSetting(const QString &name, const QVariant &value);
-    // Функция для чтения из настроек графиков
-    QVariant loadSetting(const QString &name, const QVariant &defaultValue);
+    SettingsWrapper m_settings;
 };
 
 #endif // PHYSICALLABCORE_SCENE2D_H_INCLUDED
