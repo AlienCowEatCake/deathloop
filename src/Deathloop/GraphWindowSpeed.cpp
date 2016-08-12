@@ -90,6 +90,6 @@ void GraphWindowSpeed::changeEvent(QEvent * event)
 
 void GraphWindowSpeed::updateTitle()
 {
-    setLabels(trUtf8("Скорость шара"), trUtf8("t, c"), trUtf8("v, м/с"));
+    setLabels(tr("Ball Speed"), tr("t, s"), tr("v, m/s"));
 }
 

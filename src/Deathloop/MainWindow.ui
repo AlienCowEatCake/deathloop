@@ -36,7 +36,7 @@
    </widget>
    <widget class="QMenu" name="menuAnimation">
     <property name="title">
-     <string>Анимация</string>
+     <string>&amp;Animation</string>
     </property>
     <addaction name="actionBallAnimation"/>
    </widget>
@@ -91,7 +91,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>Наклонный участок</string>
+        <string>Ramp</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="topMargin">
@@ -109,7 +109,7 @@
         <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Угол наклона [град]</string>
+           <string>Ramp Angle [deg]</string>
           </property>
          </widget>
         </item>
@@ -145,7 +145,7 @@
         <item row="2" column="0" colspan="2">
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Длина [м]</string>
+           <string>Length [m]</string>
           </property>
          </widget>
         </item>
@@ -181,7 +181,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
-        <string>Радиус петли [м]</string>
+        <string>Loop Radius [m]</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <property name="topMargin">
@@ -231,7 +231,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox_3">
        <property name="title">
-        <string>Радиус шара [м]</string>
+        <string>Ball Radius [m]</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
         <property name="topMargin">
@@ -491,7 +491,7 @@
     <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/speed.png</iconset>
    </property>
    <property name="text">
-    <string>Скорость шара</string>
+    <string>Ball &amp;Speed</string>
    </property>
   </action>
   <action name="actionAngular">
@@ -499,7 +499,7 @@
     <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/angular.png</iconset>
    </property>
    <property name="text">
-    <string>Угловая скорость шара</string>
+    <string>Ball &amp;Angular Velocity</string>
    </property>
   </action>
   <action name="actionHeight">
@@ -507,7 +507,7 @@
     <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/hight.png</iconset>
    </property>
    <property name="text">
-    <string>Изменение высоты (y) </string>
+    <string>&amp;Height (y)</string>
    </property>
   </action>
   <action name="actionLicense">
@@ -537,7 +537,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Вращение шарика</string>
+    <string>Ball &amp;Rotation</string>
    </property>
   </action>
   <action name="actionEnglish">

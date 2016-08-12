@@ -240,7 +240,7 @@ void MainWindow::updateTranslations(QString language)
     }
 
     // Перегрузим ресурсы в окнах
-    setWindowTitle(trUtf8("Мертвая петля"));
+    setWindowTitle(tr("Loop the Loop"));
     m_helpWindow->setTitle(tr("About"));
     m_helpWindow->loadHtml(QString::fromLatin1(":/html/help_%1.html").arg(language));
     m_authorsWindow->setTitle(tr("Credits"));
@@ -252,7 +252,7 @@ void MainWindow::updateTranslations(QString language)
 #else
     m_splashWindow->setPixmap(QString::fromLatin1(":/splash/splash_%1.png").arg(language));
 #endif
-    m_splashWindow->setTitle(trUtf8("Мертвая петля"));
+    m_splashWindow->setTitle(tr("Loop the Loop"));
 
     // Также следует пересчитать геометрию виждетов
     QApplication::postEvent(this, new QResizeEvent(size(), size()));
@@ -287,20 +287,20 @@ void MainWindow::checkSimulationState()
     if(status == Action::StateFinished)
         return;
 
-    QMessageBox messageBox(QMessageBox::Information, trUtf8("Статус"), QString(), QMessageBox::Ok, this);
+    QMessageBox messageBox(QMessageBox::Information, tr("Status"), QString(), QMessageBox::Ok, this);
     switch(status)
     {
     case Action::StateGoBack:
-        messageBox.setText(trUtf8("Шар не смог совершить мертвую петлю"));
-        messageBox.setInformativeText(trUtf8("Причина: начал катиться обратно"));
+        messageBox.setText(tr("The ball could not pass a loop"));
+        messageBox.setInformativeText(tr("Reason: The ball rolled back"));
         break;
     case Action::StateFallDown:
-        messageBox.setText(trUtf8("Шар не смог совершить мертвую петлю"));
-        messageBox.setInformativeText(trUtf8("Причина: выпал из петли"));
+        messageBox.setText(tr("The ball could not pass a loop"));
+        messageBox.setInformativeText(tr("Reason: The ball dropped out of the loop"));
         break;
     case Action::StateError:
-        messageBox.setText(trUtf8("Ошибка при моделировании"));
-        messageBox.setInformativeText(trUtf8("Попробуйте ввести другие параметры"));
+        messageBox.setText(tr("Error while performing the simulation"));
+        messageBox.setInformativeText(tr("Please try a different combination of initial conditions"));
         break;
     default:
         assert(false);

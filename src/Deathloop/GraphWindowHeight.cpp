@@ -90,6 +90,6 @@ void GraphWindowHeight::changeEvent(QEvent * event)
 
 void GraphWindowHeight::updateTitle()
 {
-    setLabels(trUtf8("Изменение высоты (y)"), trUtf8("t, c"), trUtf8("y, м"));
+    setLabels(tr("Height (y)"), tr("t, s"), tr("y, m"));
 }
 

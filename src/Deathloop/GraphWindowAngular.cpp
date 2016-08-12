@@ -90,6 +90,6 @@ void GraphWindowAngular::changeEvent(QEvent * event)
 
 void GraphWindowAngular::updateTitle()
 {
-    setLabels(trUtf8("Угловая скорость шара"), trUtf8("t, c"), trUtf8("w, рад/с"));
+    setLabels(tr("Ball Angular Velocity"), tr("t, s"), tr("w, rad/s"));
 }
 
