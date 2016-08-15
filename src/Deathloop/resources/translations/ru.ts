@@ -178,7 +178,7 @@
     <message>
         <location filename="../../MainWindow.ui" line="112"/>
         <source>Ramp Angle [deg]</source>
-        <translation type="unfinished">Угол наклона [°]</translation>
+        <translation type="unfinished">Угол наклона [градус]</translation>
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="148"/>
