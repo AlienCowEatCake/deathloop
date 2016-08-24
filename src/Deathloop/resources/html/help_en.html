@@ -19,12 +19,12 @@
 		<ul>
 			<li>Ball speed</li>
 			<li>Ball angular velocity</li>
-			<li>Height (the distance from the lowest point of the chute to the ball)</li>
+			<li>Height (the distance from the lowest point of the trough to the ball)</li>
 		</ul>
 	</p>
 	<p class="spacer"></p>
 	<p align="center"><b>Model</b></p>
-	<p align="justify">This software simulates the movement of a ball by rolling without slide through rectangular chute formed in a loop the loop.</p>
+	<p align="justify">This software simulates the movement of a ball by rolling without slide through rectangular trough formed in a loop the loop.</p>
 	<p align="center"><img src="qrc:///html/help.files/image001.png" /></p>
 	<p align="center" class="caption"><i>The trajectory of the center of the ball when it passing</i></p>
 	<p align="justify" class="tabbed">β - starting ramp angle</p>
@@ -32,23 +32,23 @@
 	<p align="justify" class="tabbed">R - loop radius</p>
 	<p align="justify" class="tabbed">r - ball radius</p>
 	<p align="justify" class="tabbed">α - current angle, which characterizes the position of the ball</p>
-	<p align="justify">Movement of the ball is divided into four main stages: movement on the starting ramp, movement on the entrance to the loop sector β, movement in the loop and rolling on a horizontal section of the chute.</p>
+	<p align="justify">Movement of the ball is divided into four main stages: movement on the starting ramp, movement on the entrance to the loop sector β, movement in the loop and rolling on a horizontal section of the trough.</p>
 	<p align="justify">To solve the problem, we need to create a equation of the rotational movement of a rigid body around the axis.</p>
 	<p align="center"><img src="qrc:///html/help.files/pic1.PNG" /></p>
 	<p align="justify">It is necessary to calculate the moment of inertia. At any given point in time the rotation of the ball around a fixed axis coincides with the instantaneous axis of rotation. We know the moment of inertia of the ball in relation to axis passing through the center of mass. We found the distance between the axles, then we will use the Steiner`s theorem:</p>
 	<p align="center"><img src="qrc:///html/help.files/image002.png" /></p>
 	<p align="center"><img src="qrc:///html/help.files/image004.png" /></p>
-	<p align="center" class="caption"><i>The cross-section of the ball and the chute</i></p>
+	<p align="center" class="caption"><i>The cross-section of the ball and the trough</i></p>
 	<p align="justify">Rotation of the rolling ball occurs around the axis defined by the dotted line.</p>
 	<p align="justify">Using of the Steiner`s theorem.</p>
 	<p align="center"><img src="qrc:///html/help.files/image006.png" /></p>
 	<p align="justify">The first section of the movement of the ball:</p>
-	<p align="justify">The equation of the rotational movement of a rigid body has only gravitation nonzero moment relative to the current axis.</p>
+	<p align="justify">The equation of the rotational movement of a rigid body has only gravitation moment relative to the current axis not equal to zero.</p>
 	<p align="center"><img src="qrc:///html/help.files/sn1.PNG" /></p>
 	<p align="justify">We can calculate the characteristics of the ball:</p>
 	<p align="center"><img src="qrc:///html/help.files/sn2.PNG" /></p>
 	<p align="center"><img src="qrc:///html/help.files/image012.png" /></p>
-	<p align="justify">На втором участке при расчёте углового ускорения шарика и мгновенного ускорения поступаем аналогично. We consider the motion as a circular motion (the dotted line in the figure corresponds to the trajectory of the ball center).</p>
+	<p align="justify">We calculate the angular acceleration and instantaneous acceleration of the ball in the second section in the same way. We consider the motion as a circular motion (the dotted line in the figure corresponds to the trajectory of the ball center).</p>
 	<p align="justify">The angle α varies from - β to 2π</p>
 	<p align="center"><img src="qrc:///html/help.files/image014.png" /></p>
 	<p align="center"><img src="qrc:///html/help.files/sn3.PNG" /></p>
