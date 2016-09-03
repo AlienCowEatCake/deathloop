@@ -86,13 +86,13 @@ RESOURCES += \
     src/Deathloop/resources/html/html.qrc \
     src/Deathloop/resources/html/help/help.qrc \
     src/Deathloop/resources/models/models.qrc \
-    src/Deathloop/resources/menuicons/menuicons.qrc \
+    src/Deathloop/resources/menuicons/menuicons-png.qrc \
+    src/Deathloop/resources/menuicons/menuicons-svg.qrc \
     src/Deathloop/resources/translations/translations.qrc
 
 lessThan(QT_VERSION, 5.4.0) {
     RESOURCES += src/Deathloop/resources/splash/splash-png.qrc
 } else {
-    QT += svg
     RESOURCES += src/Deathloop/resources/splash/splash-svg.qrc
 }
 

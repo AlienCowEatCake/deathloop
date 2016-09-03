@@ -26,6 +26,14 @@
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionSaveScreenshot"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
    <widget class="QMenu" name="menuGraphs">
     <property name="title">
      <string>&amp;Graphs</string>
@@ -56,6 +64,7 @@
     <addaction name="actionEnglish"/>
     <addaction name="actionRussian"/>
    </widget>
+   <addaction name="menuFile"/>
    <addaction name="menuGraphs"/>
    <addaction name="menuAnimation"/>
    <addaction name="menuLanguage"/>
@@ -470,58 +479,77 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionAbout">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/about.png</iconset>
+  <action name="actionSaveScreenshot">
+   <property name="text">
+    <string>&amp;Save Screenshot...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout">
    <property name="text">
     <string>&amp;About</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionAuthors">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/people.png</iconset>
-   </property>
    <property name="text">
     <string>&amp;Credits</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionSpeed">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/speed.png</iconset>
-   </property>
    <property name="text">
     <string>Ball &amp;Speed</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionAngular">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/angular.png</iconset>
-   </property>
    <property name="text">
     <string>Ball &amp;Angular Velocity</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionHeight">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/hight.png</iconset>
-   </property>
    <property name="text">
     <string>&amp;Height (y)</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionLicense">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/license.png</iconset>
-   </property>
    <property name="text">
     <string>&amp;License</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionAboutQt">
-   <property name="icon">
-    <iconset resource="./resources/menuicons/menuicons.qrc">:/menuicons/qt.png</iconset>
-   </property>
    <property name="text">
     <string>About &amp;Qt</string>
    </property>
@@ -539,6 +567,9 @@
    <property name="text">
     <string>Ball &amp;Rotation</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionEnglish">
    <property name="checkable">
@@ -547,6 +578,9 @@
    <property name="text">
     <string>&amp;English</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionRussian">
    <property name="checkable">
@@ -554,6 +588,9 @@
    </property>
    <property name="text">
     <string>&amp;Russian</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>
@@ -575,8 +612,6 @@
   <tabstop>pushButtonStart</tabstop>
   <tabstop>pushButtonStop</tabstop>
  </tabstops>
- <resources>
-  <include location="./resources/menuicons/menuicons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -36,7 +36,9 @@
 
 #include "widgets/HtmlWindow/HtmlWindow.h"
 #include "widgets/SplashScreenWindow/SplashScreenWindow.h"
+#include "themes/ThemeUtils.h"
 #include "utils/Workarounds.h"
+#include "utils/ImageSaver.h"
 #include "GraphWindowSpeed.h"
 #include "GraphWindowAngular.h"
 #include "GraphWindowHeight.h"
@@ -64,22 +66,14 @@ const bool actionBallAnimationDefaultState  = true; ///< анимация вра
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_ui(new Ui::MainWindow),
-    m_physicalController(new PhysicalController(this))
+    m_physicalController(new PhysicalController(this)),
+    m_imageSaver(new ImageSaver(this))
 {
     m_ui->setupUi(this);
     setCentralWidget(m_ui->widget);
     setAttribute(Qt::WA_DeleteOnClose);
 
 #if defined (Q_OS_MAC)
-    // В Mac OS X картинок в меню быть не должно
-    QList<QAction*> allActions = findChildren<QAction*>();
-    for(QList<QAction*>::ConstIterator it = allActions.begin(); it != allActions.end(); ++it)
-    {
-        QAction * action = * it;
-        action->setIcon(QIcon());
-        if(action->menuRole() == QAction::TextHeuristicRole)
-            action->setMenuRole(QAction::NoRole);
-    }
     // Под Mac OS X из коробки выглядит настолько страшно, что приходится немного стилизовать
     QList<QGroupBox*> allGroupBoxes = findChildren<QGroupBox*>();
     for(QList<QGroupBox*>::ConstIterator it = allGroupBoxes.begin(); it != allGroupBoxes.end(); ++it)
@@ -160,7 +154,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Окно-заставка
     m_splashWindow = new SplashScreenWindow(this);
 
-#if defined(Q_OS_MAC)
+#if defined (Q_OS_MAC)
     // Диалог About, используемый в проекте, ни разу не подходит на роль того About, что есть обычно под OS X.
     // Поэтому сделаем для такого случая отдельный пункт меню, который будет выполнять роль About.
     QAction * fakeAboutAction = new QAction(this);
@@ -168,6 +162,32 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(fakeAboutAction, SIGNAL(triggered()), m_splashWindow, SLOT(show()));
     m_ui->menuHelp->addAction(fakeAboutAction);
 #endif
+
+    // Подгрузим иконки для меню
+    bool darkBackground = ThemeUtils::MenuHasDarkTheme(m_ui->menuGraphs);
+    const QString iconNameTemplate = QString::fromLatin1(":/menuicons/%2_%1.%3")
+            .arg(darkBackground ? QString::fromLatin1("white") : QString::fromLatin1("black"));
+#if defined (QT_SVG_LIB) && (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+    const QString defaultExt = QString::fromLatin1("svg");
+#else
+    const QString defaultExt = QString::fromLatin1("png");
+#endif
+    const QString pixmapExt = QString::fromLatin1("png");
+    m_ui->actionSpeed->setIcon(ThemeUtils::CreateScalableIcon(
+        iconNameTemplate.arg(QString::fromLatin1("speed")).arg(defaultExt),
+        QStringList(iconNameTemplate.arg(QString::fromLatin1("speed")).arg(pixmapExt))));
+    m_ui->actionAngular->setIcon(ThemeUtils::CreateScalableIcon(
+        iconNameTemplate.arg(QString::fromLatin1("angular")).arg(defaultExt),
+        QStringList(iconNameTemplate.arg(QString::fromLatin1("angular")).arg(pixmapExt))));
+    m_ui->actionHeight->setIcon(ThemeUtils::CreateScalableIcon(
+        iconNameTemplate.arg(QString::fromLatin1("height")).arg(defaultExt),
+        QStringList(iconNameTemplate.arg(QString::fromLatin1("height")).arg(pixmapExt))));
+    m_ui->actionSaveScreenshot->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_SAVE_AS, darkBackground));
+    m_ui->actionExit->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_EXIT, darkBackground));
+    m_ui->actionAbout->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_ABOUT, darkBackground));
+    m_ui->actionAuthors->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_AUTHORS, darkBackground));
+    m_ui->actionLicense->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_TEXT, darkBackground));
+    m_ui->actionAboutQt->setIcon(ThemeUtils::GetIcon(ThemeUtils::ICON_QT, darkBackground));
 
     // Переводы и подгрузка ресурсов
     updateTranslations();
@@ -222,6 +242,7 @@ void MainWindow::updateTranslations(QString language)
     Workarounds::FontsFix(language);
 
     // Пробежим по меню и проставим галочку на нужном нам языке и снимем с остальных
+    /// @todo Неудачное решение, стоит посмотреть в сторону QActionGroup::setExclusive
     for(QList<QPair<QString, QAction *> >::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
         it->second->setChecked(it->first == language);
 
@@ -256,6 +277,9 @@ void MainWindow::updateTranslations(QString language)
 
     // Также следует пересчитать геометрию виждетов
     QApplication::postEvent(this, new QResizeEvent(size(), size()));
+
+    // Зададим дефолтное имя файла сохранялке скриншотов
+    m_imageSaver->setDefaultName(tr("Screenshot.png"));
 }
 
 MainWindow::~MainWindow()
@@ -434,6 +458,19 @@ void MainWindow::on_horizontalSliderSpeed_valueChanged(int value)
     m_ui->labelSpeed->setText(QString::number(value));
     m_physicalController->setSimulationSpeed(value / 100.0);
     m_ui->widget->updateGL();
+}
+
+/// @brief Слот на запрос сохранения скриншота из меню
+void MainWindow::on_actionSaveScreenshot_triggered()
+{
+    QImage screenshot = m_ui->widget->grabFrameBuffer();
+    m_imageSaver->save(screenshot);
+}
+
+/// @brief Слот на запрос выхода из меню
+void MainWindow::on_actionExit_triggered()
+{
+    this->close();
 }
 
 /// @brief Слот на открытие окна "О программе" из меню

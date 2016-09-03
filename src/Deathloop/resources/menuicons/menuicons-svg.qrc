@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/menuicons">
+        <file>angular_black.svg</file>
+        <file>angular_white.svg</file>
+        <file>height_black.svg</file>
+        <file>height_white.svg</file>
+        <file>speed_black.svg</file>
+        <file>speed_white.svg</file>
+    </qresource>
+</RCC>
