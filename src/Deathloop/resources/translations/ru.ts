@@ -334,7 +334,7 @@
         <location filename="../../MainWindow.cpp" line="318"/>
         <location filename="../../MainWindow.cpp" line="322"/>
         <source>The ball could not pass a loop</source>
-        <translation>Шар не смог совершить мертвую петлю</translation>
+        <translation type="unfinished">Шар не смог совершить &quot;мертвую петлю&quot;</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="319"/>
