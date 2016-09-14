@@ -45,6 +45,7 @@ void GraphWindowAngular::update()
     QVector<float> & arrX = this->arrX();
     QVector<float> & arrY = this->arrY();
     Action action(m_physicalController->action());
+    action.Reset();
 
     // сколько точек пропускать при рисовании графика
     const int skipPoints = 2;
