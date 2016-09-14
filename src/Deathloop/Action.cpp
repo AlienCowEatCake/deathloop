@@ -31,7 +31,7 @@
 namespace {
 
 /// @brief Шаг решения уравнения
-double h = 0.0001;
+const double h = 0.0001;
 
 /// @brief Решение дифференциального уравнения
 double diff(double x0, double y0, double y1, double x2, double *v, double g, double R, double r)
@@ -64,13 +64,6 @@ Action::Action(double Ngravity,double NBetaAngle,double NsphereR,double NFirstLe
     Vx = 0.0;
     Vy = 0.0;
     ff = StateNormal;
-    h = 0.0001;
-    yi = 0.0;
-    xi = 0.0;
-    x1i = 0.0;
-    y1i = 0.0;
-    s = 1;
-    ti = 0.0;
     w = 0.0;
     //fita = 0.0;
     //eps = 0.0;
@@ -79,10 +72,8 @@ Action::Action(double Ngravity,double NBetaAngle,double NsphereR,double NFirstLe
     v = 0.0;
     t1 = 0.0;
     central = - Beta;
-    xprev = 0.0;
     t = 0.0;
     z = - ModelInfo::loopWidth() * RLoop / ModelInfo::loopRadius();
-    zprev = z;
     y0 = L * std::sin(Beta) + RSph * std::sqrt(2.0) * std::cos(Beta) + (RLoop - RLoop * std::cos(Beta));
     y = y0;
     x0 = std::sin(Beta) * RSph * std::sqrt(2.0);
@@ -135,10 +126,7 @@ void Action::Refresh(double Ntime)
             v = w * (RLoop - RSph*std::sqrt(2.0));
             /*Движение со смещением по оси z*/
             if((flag == 2) || (flag == 3))
-            {
                 z = - ModelInfo::loopWidth() * RLoop / ModelInfo::loopRadius() + central / M_PI * ModelInfo::loopWidth() * RLoop / ModelInfo::loopRadius();
-                zprev = z;
-            }
             if(w < 0)   ff = StateGoBack;/*Шарик не смог подняться, начал катиться по петле обратно*/
             x0 = x;
             t1 = t;
@@ -157,7 +145,6 @@ void Action::Refresh(double Ntime)
 
         if((v * v / (RLoop - RSph * std::sqrt(2.0)) < g * std::cos(central + M_PI)) && (std::cos(central) < 0))
             ff = StateFallDown; /*Шарик не может преодолеть петлю, начинается падение*/
-        xprev = x;
         if(std::cos(central)>0)
             Vx = v * std::sin(central);
         else
@@ -185,25 +172,16 @@ void Action::Refresh(double Ntime)
 /// @brief Сброс параметров
 void Action::Reset()
 {
-    h = 0.0;
-    yi = 0.0;
-    xi = 0.0;
-    x1i = 0.0;
-    y1i = 0.0;
-    s = 0.0;
-    ti = 0.0;
     //fita = 0.0;
     //epsilonR = 0.0;
     t1 = 0.0;
     central = -Beta;
-    zprev = 0.0;
 
     x0 = std::sin(Beta) * RSph * std::sqrt(2.0);
     x = x0;
     flag = 0;
     z = - ModelInfo::loopWidth() * RLoop / ModelInfo::loopRadius();
     t = 0;
-    xprev = 0;
     y0 = L * std::sin(Beta) + RSph * std::sqrt(2.0) * std::cos(Beta) + (RLoop - RLoop * std::cos(Beta));
     y = y0;
     v = 0;
