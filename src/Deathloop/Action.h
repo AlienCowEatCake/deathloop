@@ -81,7 +81,7 @@ public:
 private:
     BallState ff;
     int flag;
-    double g,Beta,RSph,L,RLoop,x,y,z,Vx,Vy,y0,h,yi,xi,x1i,y1i,s,ti,w,/*fita,eps,epsilonR,a,*/v,t1,central,xprev,t,x0,zprev;
+    double g,Beta,RSph,L,RLoop,x,y,z,Vx,Vy,y0,w,/*fita,eps,epsilonR,a,*/v,t1,central,t,x0;
 
     // CHECKME: угол поворота шарика относительно своей оси
     double rotate_angle, t_old;
