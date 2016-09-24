@@ -117,7 +117,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_heightWindow->setHidden(true);
     // =======
     m_helpWindow = new HtmlWindow;
-    m_helpWindow->setSize(helpWindowWidth, helpWindowHeight);
+    m_helpWindow->setPreferredSize(helpWindowWidth, helpWindowHeight);
     m_helpWindow->setScrollBarEnabled();
     m_helpWindow->setHidden(true);
     // =======
