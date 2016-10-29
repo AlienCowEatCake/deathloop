@@ -32,6 +32,8 @@
 #include <QPair>
 #include <QLocale>
 #include <QResizeEvent>
+#include <QActionGroup>
+#include <QMap>
 
 #include "widgets/HtmlWindow/HtmlWindow.h"
 #include "widgets/SplashScreenWindow/SplashScreenWindow.h"
@@ -73,20 +75,19 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(m_ui->widget);
     setAttribute(Qt::WA_DeleteOnClose);
 
+    QActionGroup * langActions = new QActionGroup(this);
+    langActions->addAction(m_ui->actionEnglish);
+    langActions->addAction(m_ui->actionRussian);
+    langActions->setExclusive(true);
+
 #if defined (Q_OS_MAC)
     // Под Mac OS X из коробки выглядит настолько страшно, что приходится немного стилизовать
     QList<QGroupBox*> allGroupBoxes = findChildren<QGroupBox*>();
     for(QList<QGroupBox*>::ConstIterator it = allGroupBoxes.begin(); it != allGroupBoxes.end(); ++it)
-    {
-        QGroupBox * groupBox = * it;
-        groupBox->setStyleSheet(QString::fromLatin1("QGroupBox::title { font-size: 12pt; margin-bottom: 0px; margin-left: 7px; margin-top: 2px; }"));
-    }
+        (*it)->setStyleSheet(QString::fromLatin1("QGroupBox::title { font-size: 12pt; margin-bottom: 0px; margin-left: 7px; margin-top: 2px; }"));
     QList<QLabel*> allLabels = findChildren<QLabel*>();
     for(QList<QLabel*>::ConstIterator it = allLabels.begin(); it != allLabels.end(); ++it)
-    {
-        QLabel * label = * it;
-        label->setStyleSheet(QString::fromLatin1("QLabel { font-size: 12pt; }"));
-    }
+        (*it)->setStyleSheet(QString::fromLatin1("QLabel { font-size: 12pt; }"));
 #endif
 
     m_physicalController->resetPhysicalEngine();
@@ -142,15 +143,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // О Qt
     connect(m_ui->actionAboutQt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
 
-    // Соединяем графики друг с другом, чтобы они могли сообщать об изменении настроек
-    /// @todo Сделать более разумный способ соединения графиков
-    connect(m_speedWindow, SIGNAL(settingsChanged()), m_angularWindow, SLOT(onSettingsChanged()));
-    connect(m_speedWindow, SIGNAL(settingsChanged()), m_heightWindow, SLOT(onSettingsChanged()));
-    connect(m_angularWindow, SIGNAL(settingsChanged()), m_speedWindow, SLOT(onSettingsChanged()));
-    connect(m_angularWindow, SIGNAL(settingsChanged()), m_heightWindow, SLOT(onSettingsChanged()));
-    connect(m_heightWindow, SIGNAL(settingsChanged()), m_speedWindow, SLOT(onSettingsChanged()));
-    connect(m_heightWindow, SIGNAL(settingsChanged()), m_angularWindow, SLOT(onSettingsChanged()));
-
     // Окно-заставка
     m_splashWindow = new SplashScreenWindow(this);
 
@@ -197,20 +189,23 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::updateTranslations(QString language)
 {
     // Отображение название языка -> соответствующая ему менюшка
-    static QList<QPair<QString, QAction *> > languagesMap = QList<QPair<QString, QAction *> >()
-            << qMakePair(QString::fromLatin1("en"), m_ui->actionEnglish)
-            << qMakePair(QString::fromLatin1("ru"), m_ui->actionRussian);
+    static QMap<QString, QAction *> languagesMap;
+    if(languagesMap.isEmpty())
+    {
+        languagesMap[QString::fromLatin1("en")] = m_ui->actionEnglish;
+        languagesMap[QString::fromLatin1("ru")] = m_ui->actionRussian;
+    }
 
     // Определим системную локаль
     static QString systemLang;
     if(systemLang.isEmpty())
     {
         QString systemLocale = QLocale::system().name().toLower();
-        for(QList<QPair<QString, QAction *> >::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
+        for(QMap<QString, QAction *>::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
         {
-            if(systemLocale.startsWith(it->first))
+            if(systemLocale.startsWith(it.key()))
             {
-                systemLang = it->first;
+                systemLang = it.key();
                 break;
             }
         }
@@ -221,9 +216,15 @@ void MainWindow::updateTranslations(QString language)
     // Посмотрим в настройки, не сохранен ли случайно в них язык
     SettingsWrapper settings;
     if(language.isEmpty())
-        language = settings.value(QString::fromLatin1("Language"), systemLang).toString();
+    {
+        const QVariant rawValue = settings.value(QString::fromLatin1("Language"), systemLang);
+        const QString value = rawValue.isValid() ? rawValue.toString() : systemLang;
+        language = languagesMap.find(value) != languagesMap.end() ? value : systemLang;
+    }
     else
+    {
         settings.setValue(QString::fromLatin1("Language"), language);
+    }
 
     // Удалим старый перевод, установим новый
     static QTranslator qtTranslator;
@@ -241,10 +242,8 @@ void MainWindow::updateTranslations(QString language)
     // Пофиксим шрифты
     Workarounds::FontsFix(language);
 
-    // Пробежим по меню и проставим галочку на нужном нам языке и снимем с остальных
-    /// @todo Неудачное решение, стоит посмотреть в сторону QActionGroup::setExclusive
-    for(QList<QPair<QString, QAction *> >::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
-        it->second->setChecked(it->first == language);
+    // Проставим галочку на нужном нам языке и снимем с остальных
+    languagesMap[language]->setChecked(true);
 
     // У кнопки старт/пауза текст зависит от состояния
     switch(m_physicalController->currentState())
