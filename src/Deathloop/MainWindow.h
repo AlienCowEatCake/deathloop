@@ -24,6 +24,7 @@
 #define MAINWINDOW_H_INCLUDED
 
 #include <QMainWindow>
+#include "utils/ScopedPointer.h"
 
 namespace Ui
 {
@@ -102,17 +103,17 @@ private:
     /// @brief Функция, вызывающая обновление всех графиков
     void updateGraphWindows();
 
-    Ui::MainWindow *m_ui;
+    QScopedPointer<Ui::MainWindow> m_ui;
 
     PhysicalController *m_physicalController;
 
-    SplashScreenWindow *m_splashWindow;     ///< окно-заставка
-    GraphWindowSpeed *m_speedWindow;        ///< график скорости
-    GraphWindowAngular *m_angularWindow;    ///< график угловой скорости
-    GraphWindowHeight *m_heightWindow;      ///< график высоты
-    HtmlWindow *m_helpWindow;               ///< справка
-    HtmlWindow *m_authorsWindow;            ///< об авторах
-    HtmlWindow *m_licenseWindow;            ///< лицензия
+    SplashScreenWindow *m_splashWindow;                 ///< окно-заставка
+    HtmlWindow *m_authorsWindow;                        ///< об авторах
+    HtmlWindow *m_licenseWindow;                        ///< лицензия
+    QScopedPointer<GraphWindowSpeed> m_speedWindow;     ///< график скорости
+    QScopedPointer<GraphWindowAngular> m_angularWindow; ///< график угловой скорости
+    QScopedPointer<GraphWindowHeight> m_heightWindow;   ///< график высоты
+    QScopedPointer<HtmlWindow> m_helpWindow;            ///< справка
 
     ImageSaver *m_imageSaver;
 };

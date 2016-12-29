@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -36,7 +36,7 @@ namespace {
 // функция сжатия сектора
 void convert_point(float beta, float xOld, float yOld, float & xNew, float & yNew)
 {
-    float r = std::sqrt(xOld * xOld + yOld * yOld);
+    const float r = std::sqrt(xOld * xOld + yOld * yOld);
     float fi = std::asin(std::fabs(yOld) / r) + static_cast<float>(M_PI);
     fi = (2.0f * beta * fi / static_cast<float>(M_PI)) + (3.0f * static_cast<float>(M_PI_2)) - (3.0f * beta);
     xNew = r * std::cos(fi);
@@ -46,7 +46,9 @@ void convert_point(float beta, float xOld, float yOld, float & xNew, float & yNe
 } // namespace
 
 ModelTrackS2::ModelTrackS2()
-    : m_verticlesBackup(NULL), m_oldLoopRadius(-1.0f), m_oldBeta(-1.0)
+    : m_verticlesBackup(NULL)
+    , m_oldLoopRadius(-1.0f)
+    , m_oldBeta(-1.0)
 {}
 
 ModelTrackS2::~ModelTrackS2()
@@ -74,7 +76,7 @@ void ModelTrackS2::resize(float loopRadius, float beta)
         m_oldBeta = beta;
         m_oldLoopRadius = loopRadius;
         //задание радиуса
-        float tmp1 = loopRadius / ModelInfo::loopRadius();
+        const float tmp1 = loopRadius / ModelInfo::loopRadius();
         for(int i = 0; i < m_numVertices; i++)
         {
             m_pVertices[i].m_location[0] = m_verticlesBackup[i].m_location[0] * tmp1;

@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -65,11 +65,11 @@ const bool actionBallAnimationDefaultState  = true; ///< анимация вра
 
 } // namespace
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    m_ui(new Ui::MainWindow),
-    m_physicalController(new PhysicalController(this)),
-    m_imageSaver(new ImageSaver(this))
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , m_ui(new Ui::MainWindow)
+    , m_physicalController(new PhysicalController(this))
+    , m_imageSaver(new ImageSaver(this))
 {
     m_ui->setupUi(this);
     setCentralWidget(m_ui->widget);
@@ -82,10 +82,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #if defined (Q_OS_MAC)
     // Под Mac OS X из коробки выглядит настолько страшно, что приходится немного стилизовать
-    QList<QGroupBox*> allGroupBoxes = findChildren<QGroupBox*>();
+    const QList<QGroupBox*> allGroupBoxes = findChildren<QGroupBox*>();
     for(QList<QGroupBox*>::ConstIterator it = allGroupBoxes.begin(); it != allGroupBoxes.end(); ++it)
         (*it)->setStyleSheet(QString::fromLatin1("QGroupBox::title { font-size: 12pt; margin-bottom: 0px; margin-left: 7px; margin-top: 2px; }"));
-    QList<QLabel*> allLabels = findChildren<QLabel*>();
+    const QList<QLabel*> allLabels = findChildren<QLabel*>();
     for(QList<QLabel*>::ConstIterator it = allLabels.begin(); it != allLabels.end(); ++it)
         (*it)->setStyleSheet(QString::fromLatin1("QLabel { font-size: 12pt; }"));
 #endif
@@ -105,19 +105,19 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui->lcdNumber->setDecMode();
     m_ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
     // =======
-    m_speedWindow = new GraphWindowSpeed;
+    m_speedWindow.reset(new GraphWindowSpeed);
     m_speedWindow->setPhysicalController(m_physicalController);
     m_speedWindow->setHidden(true);
     // =======
-    m_angularWindow = new GraphWindowAngular;
+    m_angularWindow.reset(new GraphWindowAngular);
     m_angularWindow->setPhysicalController(m_physicalController);
     m_angularWindow->setHidden(true);
     // =======
-    m_heightWindow = new GraphWindowHeight;
+    m_heightWindow.reset(new GraphWindowHeight);
     m_heightWindow->setPhysicalController(m_physicalController);
     m_heightWindow->setHidden(true);
     // =======
-    m_helpWindow = new HtmlWindow;
+    m_helpWindow.reset(new HtmlWindow);
     m_helpWindow->setPreferredSize(helpWindowWidth, helpWindowHeight);
     m_helpWindow->setScrollBarEnabled();
     m_helpWindow->setHidden(true);
@@ -141,7 +141,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // =======
 
     // О Qt
-    connect(m_ui->actionAboutQt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
+    connect(m_ui->actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
     // Окно-заставка
     m_splashWindow = new SplashScreenWindow(this);
@@ -156,7 +156,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     // Подгрузим иконки для меню
-    bool darkBackground = ThemeUtils::MenuHasDarkTheme(m_ui->menuGraphs);
+    const bool darkBackground = ThemeUtils::MenuHasDarkTheme(m_ui->menuGraphs);
     const QString iconNameTemplate = QString::fromLatin1(":/menuicons/%2_%1.%3")
             .arg(darkBackground ? QString::fromLatin1("white") : QString::fromLatin1("black"));
 #if defined (QT_SVG_LIB) && (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
@@ -200,7 +200,7 @@ void MainWindow::updateTranslations(QString language)
     static QString systemLang;
     if(systemLang.isEmpty())
     {
-        QString systemLocale = QLocale::system().name().toLower();
+        const QString systemLocale = QLocale::system().name().toLower();
         for(QMap<QString, QAction *>::Iterator it = languagesMap.begin(); it != languagesMap.end(); ++it)
         {
             if(systemLocale.startsWith(it.key()))
@@ -283,11 +283,6 @@ void MainWindow::updateTranslations(QString language)
 
 MainWindow::~MainWindow()
 {
-    delete m_speedWindow;
-    delete m_angularWindow;
-    delete m_heightWindow;
-    delete m_helpWindow;
-    delete m_ui;
     qApp->quit();
 }
 
@@ -432,7 +427,7 @@ void MainWindow::on_horizontalSliderLength_valueChanged(int value)
 /// @brief Слот на изменение ползунка радиуса петли
 void MainWindow::on_horizontalSliderLoopRadius_valueChanged(int value)
 {
-    double value1 = value / 10.0;
+    const double value1 = value / 10.0;
     m_ui->labelLoopRadius->setText(QString::number(value1));
     m_physicalController->action().set_LoopR(value1);
     m_physicalController->resetPhysicalEngine();
@@ -443,7 +438,7 @@ void MainWindow::on_horizontalSliderLoopRadius_valueChanged(int value)
 /// @brief Слот на изменение ползунка радиуса шарика
 void MainWindow::on_horizontalSliderSphereRadius_valueChanged(int value)
 {
-    double value1 = value / 10.0;
+    const double value1 = value / 10.0;
     m_ui->labelSphereRadius->setText(QString::number(value1));
     m_physicalController->action().set_SphereR(value1);
     m_physicalController->resetPhysicalEngine();
@@ -462,7 +457,7 @@ void MainWindow::on_horizontalSliderSpeed_valueChanged(int value)
 /// @brief Слот на запрос сохранения скриншота из меню
 void MainWindow::on_actionSaveScreenshot_triggered()
 {
-    QImage screenshot = m_ui->widget->grabFrameBuffer();
+    const QImage screenshot = m_ui->widget->grabFrameBuffer();
     m_imageSaver->save(screenshot);
 }
 

@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -25,7 +25,8 @@
 #include <cmath>
 
 ModelSphere::ModelSphere()
-    :  m_verticlesBackup(NULL), m_oldRadius(-1.0f)
+    :  m_verticlesBackup(NULL)
+    , m_oldRadius(-1.0f)
 {}
 
 ModelSphere::~ModelSphere()
@@ -52,7 +53,7 @@ void ModelSphere::resize(float radius)
         //сохранение параметров
         m_oldRadius = radius;
         //задание радиуса
-        float tmp1 = radius / ModelInfo::sphereRadius();
+        const float tmp1 = radius / ModelInfo::sphereRadius();
         for(int i = 0; i < m_numVertices; i++)
         {
             m_pVertices[i].m_location[0] = m_verticlesBackup[i].m_location[0] * tmp1;

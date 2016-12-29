@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -29,7 +29,10 @@
 #endif
 
 ModelTrackS1::ModelTrackS1()
-    : m_verticlesBackup(NULL), m_oldLength(-1.0f), m_oldBeta(-1.0), m_oldLoopRadius(-1.0f)
+    : m_verticlesBackup(NULL)
+    , m_oldLength(-1.0f)
+    , m_oldBeta(-1.0)
+    , m_oldLoopRadius(-1.0f)
 {}
 
 ModelTrackS1::~ModelTrackS1()
@@ -75,7 +78,7 @@ void ModelTrackS1::resize(float length, float beta, float loopRadius, float sphe
         tmp2 = std::sin(beta - static_cast<float>(M_PI_2));
         for(int i = 0; i < m_numVertices; i++)
         {
-            float old_location_x = m_pVertices[i].m_location[0], old_location_y = m_pVertices[i].m_location[1];
+            const float old_location_x = m_pVertices[i].m_location[0], old_location_y = m_pVertices[i].m_location[1];
             m_pVertices[i].m_location[0] = old_location_x * tmp1 + old_location_y * tmp2;
             m_pVertices[i].m_location[1] = - old_location_x * tmp2 + old_location_y * tmp1;
         }

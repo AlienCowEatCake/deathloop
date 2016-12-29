@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -25,8 +25,9 @@
 #include <QEvent>
 #include "PhysicalController.h"
 
-GraphWindowAngular::GraphWindowAngular(QWidget *parent) :
-    GraphWindowAbstract(false, parent), m_physicalController(NULL)
+GraphWindowAngular::GraphWindowAngular(QWidget *parent)
+    : GraphWindowAbstract(false, parent)
+    , m_physicalController(NULL)
 {
     updateTitle();
 }

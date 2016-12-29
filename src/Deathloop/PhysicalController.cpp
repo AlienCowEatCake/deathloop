@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -25,7 +25,8 @@
 #include <cassert>
 
 PhysicalController::PhysicalController(QObject * parent)
-    : PhysicalControllerAbstract(parent), m_action(9.8, 1, 0.1, 20.0, 2.0)
+    : PhysicalControllerAbstract(parent)
+    , m_action(9.8, 1, 0.1, 20.0, 2.0)
 {
     setTimerStep(10);
     connectToTimer(this, SLOT(actionTime()));

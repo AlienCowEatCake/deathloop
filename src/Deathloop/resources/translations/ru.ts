@@ -44,22 +44,22 @@
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="94"/>
+        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="96"/>
         <source>Select Graph Color</source>
         <translation>Выберите цвет графика</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="110"/>
+        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="118"/>
         <source>Width</source>
         <translation>Толщина</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="110"/>
+        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="118"/>
         <source>Enter Graph Width:</source>
         <translation>Укажите толщину графика:</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="123"/>
+        <location filename="../../../PhysicalLabCore/widgets/GraphWindowAbstract/GraphWindowAbstract.cpp" line="130"/>
         <source>Graph</source>
         <translation>График</translation>
     </message>
@@ -67,17 +67,17 @@
 <context>
     <name>GraphWindowAngular</name>
     <message>
-        <location filename="../../GraphWindowAngular.cpp" line="93"/>
+        <location filename="../../GraphWindowAngular.cpp" line="95"/>
         <source>Ball Angular Velocity</source>
         <translation>Угловая скорость шара</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowAngular.cpp" line="93"/>
+        <location filename="../../GraphWindowAngular.cpp" line="95"/>
         <source>t, s</source>
         <translation>t, с</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowAngular.cpp" line="93"/>
+        <location filename="../../GraphWindowAngular.cpp" line="95"/>
         <source>w, rad/s</source>
         <translation>ω, рад/с</translation>
     </message>
@@ -85,17 +85,17 @@
 <context>
     <name>GraphWindowHeight</name>
     <message>
-        <location filename="../../GraphWindowHeight.cpp" line="93"/>
+        <location filename="../../GraphWindowHeight.cpp" line="95"/>
         <source>Height (y)</source>
         <translation>Изменение высоты (y)</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowHeight.cpp" line="93"/>
+        <location filename="../../GraphWindowHeight.cpp" line="95"/>
         <source>t, s</source>
         <translation>t, с</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowHeight.cpp" line="93"/>
+        <location filename="../../GraphWindowHeight.cpp" line="95"/>
         <source>y, m</source>
         <translation>y, м</translation>
     </message>
@@ -103,17 +103,17 @@
 <context>
     <name>GraphWindowSpeed</name>
     <message>
-        <location filename="../../GraphWindowSpeed.cpp" line="93"/>
+        <location filename="../../GraphWindowSpeed.cpp" line="95"/>
         <source>Ball Speed</source>
         <translation>Скорость шара</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowSpeed.cpp" line="93"/>
+        <location filename="../../GraphWindowSpeed.cpp" line="95"/>
         <source>t, s</source>
         <translation>t, с</translation>
     </message>
     <message>
-        <location filename="../../GraphWindowSpeed.cpp" line="93"/>
+        <location filename="../../GraphWindowSpeed.cpp" line="95"/>
         <source>v, m/s</source>
         <translation>v, м/с</translation>
     </message>
@@ -121,27 +121,27 @@
 <context>
     <name>ImageSaver</name>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="71"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="72"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="74"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="75"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="80"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="81"/>
         <source>Save Image File</source>
         <translation>Сохранить изображение</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="108"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="109"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="108"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="109"/>
         <source>Error: Can&apos;t save file</source>
         <translation>Ошибка: Не удалось сохранить файл</translation>
     </message>
@@ -280,8 +280,8 @@
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="447"/>
-        <location filename="../../MainWindow.cpp" line="253"/>
-        <location filename="../../MainWindow.cpp" line="371"/>
+        <location filename="../../MainWindow.cpp" line="252"/>
+        <location filename="../../MainWindow.cpp" line="365"/>
         <source>Start</source>
         <translation>Старт</translation>
     </message>
@@ -291,73 +291,73 @@
         <translation>Сброс</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="256"/>
-        <location filename="../../MainWindow.cpp" line="346"/>
-        <location filename="../../MainWindow.cpp" line="350"/>
+        <location filename="../../MainWindow.cpp" line="255"/>
+        <location filename="../../MainWindow.cpp" line="340"/>
+        <location filename="../../MainWindow.cpp" line="344"/>
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="259"/>
-        <location filename="../../MainWindow.cpp" line="354"/>
+        <location filename="../../MainWindow.cpp" line="258"/>
+        <location filename="../../MainWindow.cpp" line="348"/>
         <source>Resume</source>
         <translatorcomment>Вообще надо возобновить или продолжить, но кнопка слишком маленькой ширины</translatorcomment>
         <translation type="unfinished">Старт</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="264"/>
-        <location filename="../../MainWindow.cpp" line="276"/>
+        <location filename="../../MainWindow.cpp" line="263"/>
+        <location filename="../../MainWindow.cpp" line="275"/>
         <source>Loop the Loop</source>
         <translation>Мертвая петля</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="265"/>
+        <location filename="../../MainWindow.cpp" line="264"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="267"/>
+        <location filename="../../MainWindow.cpp" line="266"/>
         <source>Credits</source>
         <translation>Разработчики</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="282"/>
+        <location filename="../../MainWindow.cpp" line="281"/>
         <source>Screenshot.png</source>
         <translation>Скриншот.png</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="314"/>
+        <location filename="../../MainWindow.cpp" line="308"/>
         <source>Status</source>
         <translation>Статус</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="318"/>
-        <location filename="../../MainWindow.cpp" line="322"/>
+        <location filename="../../MainWindow.cpp" line="312"/>
+        <location filename="../../MainWindow.cpp" line="316"/>
         <source>The ball could not pass a loop</source>
         <translation type="unfinished">Шар не смог совершить &quot;мертвую петлю&quot;</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="319"/>
+        <location filename="../../MainWindow.cpp" line="313"/>
         <source>Reason: The ball rolled back</source>
         <translation>Причина: начал катиться обратно</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="323"/>
+        <location filename="../../MainWindow.cpp" line="317"/>
         <source>Reason: The ball dropped out of the loop</source>
         <translation>Причина: выпал из петли</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="326"/>
+        <location filename="../../MainWindow.cpp" line="320"/>
         <source>Error while performing the simulation</source>
         <translation>Ошибка при моделировании</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="327"/>
+        <location filename="../../MainWindow.cpp" line="321"/>
         <source>Please try a different combination of initial conditions</source>
         <translation>Попробуйте ввести другие параметры</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="269"/>
+        <location filename="../../MainWindow.cpp" line="268"/>
         <source>License</source>
         <translation>Лицензия</translation>
     </message>
@@ -365,9 +365,9 @@
 <context>
     <name>Scene2D</name>
     <message>
-        <location filename="../../../PhysicalLabCore/widgets/Scene2D/Scene2D.cpp" line="177"/>
         <location filename="../../../PhysicalLabCore/widgets/Scene2D/Scene2D.cpp" line="179"/>
         <location filename="../../../PhysicalLabCore/widgets/Scene2D/Scene2D.cpp" line="181"/>
+        <location filename="../../../PhysicalLabCore/widgets/Scene2D/Scene2D.cpp" line="183"/>
         <source>Times</source>
         <translation>Times</translation>
     </message>

@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -25,7 +25,9 @@
 #include <cmath>
 
 ModelTrackS4::ModelTrackS4()
-    : m_verticlesBackup(NULL), m_oldLength(-1.0f), m_oldLoopRadius(-1.0f)
+    : m_verticlesBackup(NULL)
+    , m_oldLength(-1.0f)
+    , m_oldLoopRadius(-1.0f)
 {}
 
 ModelTrackS4::~ModelTrackS4()
@@ -53,7 +55,7 @@ void ModelTrackS4::resize(float length, float rloop)
         m_oldLength = length;
         //изменение размеров
         const float epsilon = 0.5f;
-        float tmp1 = rloop / ModelInfo::loopRadius();
+        const float tmp1 = rloop / ModelInfo::loopRadius();
         for(int i = 0; i < m_numVertices; i++)
         {
             m_pVertices[i].m_location[0] = m_verticlesBackup[i].m_location[0] * tmp1;
@@ -66,7 +68,7 @@ void ModelTrackS4::resize(float length, float rloop)
         //поворот осей координат
         for(int i = 0; i < m_numVertices; i++)
         {
-            float old_location_x = m_pVertices[i].m_location[0], old_location_y = m_pVertices[i].m_location[1];
+            const float old_location_x = m_pVertices[i].m_location[0], old_location_y = m_pVertices[i].m_location[1];
             m_pVertices[i].m_location[0] = - old_location_y;
             m_pVertices[i].m_location[1] = old_location_x;
         }

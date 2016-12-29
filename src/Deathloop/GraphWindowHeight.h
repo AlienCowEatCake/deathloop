@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -30,7 +30,7 @@ class PhysicalController;
 class GraphWindowHeight : public GraphWindowAbstract
 {
     Q_OBJECT
-    
+
 public:
     explicit GraphWindowHeight(QWidget *parent = 0);
     void update();

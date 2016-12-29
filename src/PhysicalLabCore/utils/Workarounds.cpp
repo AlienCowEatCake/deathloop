@@ -41,14 +41,14 @@ void FontsFix(const QString & language)
 #if defined (Q_OS_WIN)
 
     // Отображение название языка -> соответствующая ему WritingSystem
-    static QList<QPair<QString, QFontDatabase::WritingSystem> > writingSystemMap =
+    static const QList<QPair<QString, QFontDatabase::WritingSystem> > writingSystemMap =
             QList<QPair<QString, QFontDatabase::WritingSystem> >()
             << qMakePair(QString::fromLatin1("en"), QFontDatabase::Latin)
             << qMakePair(QString::fromLatin1("ru"), QFontDatabase::Cyrillic);
 
     // Найдем WritingSystem для текущего языка
     QFontDatabase::WritingSystem currentWritingSystem = QFontDatabase::Any;
-    for(QList<QPair<QString, QFontDatabase::WritingSystem> >::Iterator it = writingSystemMap.begin(); it != writingSystemMap.end(); ++it)
+    for(QList<QPair<QString, QFontDatabase::WritingSystem> >::ConstIterator it = writingSystemMap.begin(); it != writingSystemMap.end(); ++it)
     {
         if(it->first == language)
         {
@@ -58,13 +58,13 @@ void FontsFix(const QString & language)
     }
 
     // Шрифт стандартный, по умолчанию
-    static QFont defaultFont = qApp->font();
+    static const QFont defaultFont = qApp->font();
     // Шрифт Tahoma, если стандартный не поддерживает выбранный язык
     QFont fallbackFont = defaultFont;
     fallbackFont.setFamily(QString::fromLatin1("Tahoma"));
 
     // Проверим, умеет ли стандартный шрифт писать на новом языке
-    static QFontDatabase fontDatabase;
+    static const QFontDatabase fontDatabase;
     if(!fontDatabase.families(currentWritingSystem).contains(defaultFont.family(), Qt::CaseInsensitive))
         qApp->setFont(fallbackFont);   // Если не умеет - заменим на Tahoma
     else
@@ -120,6 +120,24 @@ bool IsRemoteSession()
         return true;
 #endif
     return false;
+}
+
+/// @brief Переопределить неподдерживаемые QT_QPA_PLATFORMTHEME и QT_STYLE_OVERRIDE
+void StyleFix()
+{
+#if (defined (Q_OS_UNIX) && !defined (Q_OS_MAC) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
+    // До 5.6 включительно использовался стиль gtk, с 5.7 он называется gtk2
+    // Если это статическая сборка, например, с 5.6 и в системе определены
+    // QT_QPA_PLATFORMTHEME и/или QT_STYLE_OVERRIDE, то стили не подхватятся.
+    static char newPlatformThemeEnv [] = "QT_QPA_PLATFORMTHEME=gtk";
+    const char * platformThemeEnv = getenv("QT_QPA_PLATFORMTHEME");
+    if(platformThemeEnv && !QString::fromLatin1(platformThemeEnv).compare(QString::fromLatin1("gtk2"), Qt::CaseInsensitive))
+        putenv(newPlatformThemeEnv);
+    static char newStyleOverrideEnv [] = "QT_STYLE_OVERRIDE=gtk";
+    const char * styleOverrideEnv = getenv("QT_STYLE_OVERRIDE");
+    if(styleOverrideEnv && !QString::fromLatin1(styleOverrideEnv).compare(QString::fromLatin1("gtk2"), Qt::CaseInsensitive))
+        putenv(newStyleOverrideEnv);
+#endif
 }
 
 } // Workarounds

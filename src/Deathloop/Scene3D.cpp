@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -29,7 +29,10 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-Scene3D::Scene3D(QWidget* parent) : Scene3DAbstract(parent), m_physicalController(NULL), m_ballAnimated(true)
+Scene3D::Scene3D(QWidget* parent)
+    : Scene3DAbstract(parent)
+    , m_physicalController(NULL)
+    , m_ballAnimated(true)
 {
     const GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f, 0.0f};     // фоновый свет
     const GLfloat light_diffuse[] = {0.35f, 0.35f, 0.35f, 0.0f};  // значение диффузного света

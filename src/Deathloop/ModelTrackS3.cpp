@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -25,7 +25,8 @@
 #include <cmath>
 
 ModelTrackS3::ModelTrackS3()
-    : m_verticlesBackup(NULL), m_oldLoopRadius(-1.0f)
+    : m_verticlesBackup(NULL)
+    , m_oldLoopRadius(-1.0f)
 {}
 
 ModelTrackS3::~ModelTrackS3()
@@ -52,7 +53,7 @@ void ModelTrackS3::resize(float loopRadius)
         //сохранение параметров
         m_oldLoopRadius = loopRadius;
         //задание радиуса
-        float tmp1 = loopRadius / ModelInfo::loopRadius();
+        const float tmp1 = loopRadius / ModelInfo::loopRadius();
         for(int i = 0; i < m_numVertices; i++)
         {
             m_pVertices[i].m_location[0] = m_verticlesBackup[i].m_location[0] * tmp1;

@@ -25,10 +25,29 @@
 #include <cmath>
 #include <cstring>
 #include <cassert>
+#include <QtGlobal>
+#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
+#define SCENE3D_NO_GESTURES
+#endif
+#if !defined (SCENE3D_NO_GESTURES)
+#include <QGesture>
+#include <QGestureEvent>
+#include <QPanGesture>
+#include <QPinchGesture>
+#else
+class QGestureEvent {};
+class QPanGesture   {};
+class QPinchGesture {};
+#endif
 
 Scene3DAbstract::Scene3DAbstract(QWidget* parent)
     : GLWidgetImpl(parent)
-{}
+{
+#if !defined (SCENE3D_NO_GESTURES)
+    grabGesture(Qt::PanGesture);
+    grabGesture(Qt::PinchGesture);
+#endif
+}
 
 /// @brief Установить параметры сцены по-умолчанию
 void Scene3DAbstract::setDefaultScene(const SceneDefault & sceneDefault)
@@ -65,7 +84,7 @@ void Scene3DAbstract::resizeGL(int nWidth, int nHeight)
     GLImpl::glMatrixMode(GL_PROJECTION);
     GLImpl::glLoadIdentity();
 
-    GLdouble ratio = static_cast<GLdouble>(nHeight) / static_cast<GLdouble>(nWidth);
+    const GLdouble ratio = static_cast<GLdouble>(nHeight) / static_cast<GLdouble>(nWidth);
     if (nWidth>=nHeight)
         GLImpl::glOrtho(-1.0/ratio, 1.0/ratio, -1.0, 1.0, -10.0, 30.0);
     else
@@ -86,7 +105,7 @@ void Scene3DAbstract::mouseReleaseEvent(QMouseEvent*)
 }
 
 void Scene3DAbstract::mouseMoveEvent(QMouseEvent* pe)
-{    
+{
     m_sceneParameters.xRot += 180.0f / 1.5f * static_cast<GLfloat>(pe->y()-m_mousePosition.y()) / static_cast<GLfloat>(height());
     m_sceneParameters.zRot += 180.0f / 1.5f * static_cast<GLfloat>(pe->x()-m_mousePosition.x()) / static_cast<GLfloat>(width());
     m_mousePosition = pe->pos();
@@ -148,6 +167,15 @@ void Scene3DAbstract::keyPressEvent(QKeyEvent* pe)
     }
 
     updateGL();
+}
+
+bool Scene3DAbstract::event(QEvent* event)
+{
+#if !defined (SCENE3D_NO_GESTURES)
+    if(event->type() == QEvent::Gesture)
+        return gestureEvent(static_cast<QGestureEvent*>(event));
+#endif
+    return GLWidgetImpl::event(event);
 }
 
 void Scene3DAbstract::scale_plus()
@@ -242,12 +270,57 @@ const GLfloat * Scene3DAbstract::lightPosition(GLenum light_ID) const
     return m_lightParameters.begin()->lightPosition;
 }
 
+bool Scene3DAbstract::gestureEvent(QGestureEvent* event)
+{
+#if !defined (SCENE3D_NO_GESTURES)
+    if(QGesture* pan = event->gesture(Qt::PanGesture))
+        panTriggered(static_cast<QPanGesture*>(pan));
+    if(QGesture* pinch = event->gesture(Qt::PinchGesture))
+        pinchTriggered(static_cast<QPinchGesture*>(pinch));
+    return true;
+#else
+    Q_UNUSED(event);
+    return true;
+#endif
+}
+
+void Scene3DAbstract::panTriggered(QPanGesture* gesture)
+{
+#if !defined (SCENE3D_NO_GESTURES)
+    const QPointF delta = gesture->delta();
+    m_sceneParameters.xRot += 180.0f / 1.5f * static_cast<GLfloat>(delta.y()) / static_cast<GLfloat>(height());
+    m_sceneParameters.zRot += 180.0f / 1.5f * static_cast<GLfloat>(delta.x()) / static_cast<GLfloat>(width());
+    updateGL();
+#else
+    Q_UNUSED(gesture);
+#endif
+}
+
+void Scene3DAbstract::pinchTriggered(QPinchGesture* gesture)
+{
+#if !defined (SCENE3D_NO_GESTURES)
+    const QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
+    if(changeFlags & QPinchGesture::ScaleFactorChanged)
+    {
+        const float newScale = m_sceneParameters.nSca * static_cast<float>(gesture->scaleFactor());
+        if(newScale <= m_sceneDefault.scaleMax && newScale >= m_sceneDefault.scaleMin)
+        {
+            m_sceneParameters.nSca = newScale;
+            updateLight();
+        }
+    }
+    updateGL();
+#else
+    Q_UNUSED(gesture);
+#endif
+}
+
 /// @brief Обновление освещения при изменении масштаба
 void Scene3DAbstract::updateLight()
 {
     for(QList<LightParameters>::ConstIterator it = m_lightParameters.begin(); it != m_lightParameters.end(); ++it)
     {
-        GLfloat correctionFactor = it->lightCorrection;
+        const GLfloat correctionFactor = it->lightCorrection;
         if(correctionFactor > 0.0f)
         {
             GLfloat light_diffuse_new[] =

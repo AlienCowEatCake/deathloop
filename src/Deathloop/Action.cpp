@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2011-2016,
         Andrei V. Kurochkin     <kurochkin.andrei.v@yandex.ru>
         Mikhail E. Aleksandrov  <alexandroff.m@gmail.com>
@@ -53,7 +53,7 @@ double diff(double x0, double y0, double y1, double x2, double *v, double g, dou
 
 } // namespace
 
-/// @brief Конструктор (инициализация начальных значений
+/// @brief Конструктор (инициализация начальных значений)
 Action::Action(double Ngravity,double NBetaAngle,double NsphereR,double NFirstLength,double NLoopR)
 {
     g = Ngravity;
@@ -91,7 +91,7 @@ void Action::Refresh(double Ntime)
 {
     t = Ntime/1000.0;
     // CHECKME раньше это было 0.01*ktime
-    double dt = t - t_old;
+    const double dt = t - t_old;
 
     if((x < L*std::cos(Beta) + 3*RLoop) && (!(ff == StateFallDown)))
     {
@@ -159,7 +159,7 @@ void Action::Refresh(double Ntime)
     // CHECKME: угол поворота шарика относительно своей оси
     if(ff == StateNormal)
     {
-        double w_ball = v / RSph * std::sqrt(2.0);
+        const double w_ball = v / RSph * std::sqrt(2.0);
         rotate_angle += w_ball * (t - t_old);
         if(rotate_angle > 2.0 * M_PI) rotate_angle -= 2.0 * M_PI;
         t_old = t;
