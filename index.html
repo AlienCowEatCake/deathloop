@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Мёртвая петля">
+	<title>Мёртвая петля</title>
+
+	<!--[if true]><![if gt IE 7]><![endif]-->
+	<script language="JavaScript" type="text/javascript">
+		function getStyleObject(objectId) {
+			if(document.getElementById) {
+				if(document.getElementById(objectId))
+					return document.getElementById(objectId).style;
+			} else if(document.all) {
+				if(document.all(objectId))
+					return document.all(objectId).style;
+			} else if(document.layers) {
+				if(document.layers[objectId])
+					return document.layers[objectId];
+			} else {
+				return false;
+			}
+		}
+
+		function toggleObjectVisibility(objectId) {
+			var styleObject = getStyleObject(objectId);
+			if(styleObject) {
+				if(styleObject.visibility == 'hidden') {
+					styleObject.visibility = 'visible';
+					styleObject.position = 'relative';
+				} else {
+					styleObject.visibility = 'hidden';
+					styleObject.position = 'fixed';
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+	<!--[if true]><![endif]><![endif]-->
+
+	<style type="text/css">
+		html, body {
+			font-size: 12px;
+			font-family: sans-serif;
+			background: #ffffff;
+			color: #000000;
+			margin: 12px;
+		}
+		h1 {
+			font-size: 16px;
+		}
+		h2 {
+			font-size: 14px;
+		}
+		h3 {
+			font-size: 13px;
+		}
+		.div_gpl_logo {
+			float: right;
+			display: inline;
+			margin-left: -88px;
+		}
+		.img_screenshot {
+			vertical-align: middle;
+		}
+		.table_dl, .table_dl th, .table_dl td {
+			border-collapse: collapse;
+			border: 1px solid #999999;
+		}
+		.table_dl td {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+		.table_dl_head {
+			background-color: LightGray;
+		}
+		.img_model {
+			vertical-align: middle;
+		}
+		.p_model_var {
+			margin-left: 50px;
+		}
+		.spoiler {
+			visibility: visible;
+			position: relative;
+		}
+		.spoiler_head {
+			cursor: pointer;
+			background-color: #eeeeee;
+			color: #000000;
+			font-weight: bold;
+			font-size: 0.95em;
+			padding: 2px 20px 2px 20px;
+			border:solid #bbbbbb 1px;
+			line-height: 24px;
+		}
+		.spoiler_content {
+			padding-top:4px;
+			padding-bottom:4px;
+		}
+	</style>
+</head>
+<body>
+	<div class="div_gpl_logo"><img src="images/gplv3-88x31.png" alt="[GPL v3]"></div>
+	<div align="center"><h1>Мёртвая петля</h1></div>
+
+	<h2>Описание</h2>
+	<br>
+	<b>Цель проекта:</b> разработать программный продукт, представляющий собой виртуальную физическую лабораторию, моделирующую движение шарика в «мёртвой петле» при различных начальных условиях<br>
+	<br>
+	<b>Язык программирования:</b> C++<br>
+	<br>
+	<b>Фреймворк:</b> Qt4 / Qt5<br>
+	<br>
+	<b>Лицензия:</b> <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU GPL v3</a><br>
+	<br>
+
+	<p>В программе моделируется поведение шарика, который совершает «Мёртвую петлю», то есть катится по круговому сектору. В модели можно изменять: угол наклона начального сектора (по которому шар набирает скорость), его длину, радиус проходимой шаром окружности и радиус шара.</p>
+	<p>В программе выводятся графики:</p>
+	<ul>
+		<li>скорость шара</li>
+		<li>угловая скорость шара</li>
+		<li>изменение высоты шара относительно нижней точки желоба</li>
+	</ul>
+
+	<br>
+	<h2>Скриншоты</h2>
+	<div align="center">
+		<img src="images/screen1.png" alt="" class="img_screenshot">&nbsp;
+		<img src="images/screen4.png" alt="" class="img_screenshot">
+	</div>
+	<br>
+
+	<br>
+	<h2>Загрузка</h2>
+	<b>Исходный код:</b><br>
+	<a href="https://github.com/AlienCowEatCake/deathloop/archive/v1.0.zip">deathloop-1.0.zip</a><br>
+	<a href="https://github.com/AlienCowEatCake/deathloop/archive/v1.0.tar.gz">deathloop-1.0.tar.gz</a><br>
+	<br>
+	<b>Git:</b><br>
+	<a href="https://github.com/AlienCowEatCake/deathloop.git">https://github.com/AlienCowEatCake/deathloop.git</a><br>
+	<br>
+	<b>Бинарные сборки:</b><br>
+	<table class="table_dl">
+		<tr class="table_dl_head">
+			<th><b>Компилятор / Qt</b></th>
+			<th><b>ОС</b></th>
+			<th><b>Ссылка</b></th>
+		</tr>
+		<tr>
+			<td>MSVC 2015 x86, Qt 5.6.2</td>
+			<td>Windows XP SP3 и выше</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt5.6_msvc2015_x86.exe">deathloop_qt5.6_msvc2015_x86.exe</a></td>
+		</tr>
+		<tr>
+			<td>MSVC 2015 x64, Qt 5.6.2</td>
+			<td>Windows XP x64 SP2 и выше</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt5.6_msvc2015_x64.exe">deathloop_qt5.6_msvc2015_x64.exe</a></td>
+		</tr>
+		<tr>
+			<td>MinGW 3.4.2, Qt 4.4.3</td>
+			<td>Windows 98 SE и выше</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt4.4_mingw32.exe">deathloop_qt4.4_mingw32.exe</a></td>
+		</tr>
+		<tr>
+			<td>GCC 4.8.5 i486, Qt 5.6.2</td>
+			<td>GNU/Linux i486</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt5.6_i486-linux-gnu.elf">deathloop_qt5.6_i486-linux-gnu.elf</a></td>
+		</tr>
+		<tr>
+			<td>GCC 4.8.5 x86_64, Qt 5.6.2</td>
+			<td>GNU/Linux x86_64</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt5.6_x86_64-linux-gnu.elf">deathloop_qt5.6_x86_64-linux-gnu.elf</a></td>
+		</tr>
+		<tr>
+			<td>Apple Clang 7.3.0, Qt 5.6.2</td>
+			<td>Mac OS X 10.6 и выше</td>
+			<td><a href="https://github.com/AlienCowEatCake/deathloop/releases/download/v1.0/deathloop_qt5.6_clang64_libstdc.dmg">deathloop_qt5.6_clang64_libstdc++.dmg</a></td>
+		</tr>
+	</table>
+	<br>
+	<b>Архив версий:</b><br>
+	<a href="https://github.com/AlienCowEatCake/deathloop/releases" target="_blank">Releases/</a><br>
+	<br>
+
+	<br>
+	<h2>Список изменений</h2>
+	<b>[v1.0]</b> - 31 Dec 2016
+	<ul>
+		<li>Глобальный рефакторинг, в ходе которого исправлено множество мелких багов</li>
+		<li>Общий код вынесен в отдельный модуль, который теперь используется и в других проектах</li>
+		<li>Добавлена английская локализация</li>
+		<li>Подготовлены официальные сборки для GNU/Linux и macOS</li>
+		<li>Исправлены проблемы с текстурами для устаревших видеокарт</li>
+		<li>Доработан дизайн приложения</li>
+		<li>Добавлена кастомизация внешнего вида графиков</li>
+		<li>Изображения графиков и текущего состояния сцены теперь можно сохранять</li>
+		<li>Реализована базовая поддержка дисплеев с высоким разрешением</li>
+		<li>Реализована базовая поддержка управления сценой жестами типа Pinch и Pan</li>
+	</ul>
+	<!--[if true]><![if gt IE 7]><![endif]-->
+	<span onclick="toggleObjectVisibility('spoiler_changelog');" class="spoiler_head">Предыдущие версии</span>
+	<!--[if true]><![endif]><![endif]-->
+	<div id="spoiler_changelog" class="spoiler">
+	<div id="spoiler_changelog_content" class="spoiler_content">
+	<b>[v0.38]</b> - 25 Aug 2015
+	<ul>
+		<li>Добавлен альтернативный софтверный рендер для систем, плохо поддерживающих OpenGL</li>
+		<li>Исправлено восстановление исходного состояния сцены</li>
+		<li>Обновлены ссылки на проект</li>
+		<li>Обновлены сборочные скрипты под Windows</li>
+	</ul>
+	<b>[v0.37]</b> - 05 Jan 2015
+	<ul>
+		<li>Построитель графиков перенесен с OpenGL на QPainter, исправлены найденные ошибки</li>
+		<li>Исправлены ошибки линковки при использовании Qt 5.4 в конфигурации -opengl dynamic</li>
+		<li>В сборочных скриптах под Linux добавлено экранирование переменных</li>
+		<li>Поправлены опции компиляции</li>
+	</ul>
+	<b>[v0.36]</b> - 24 Aug 2014
+	<ul>
+		<li>Добавлен антиалиасинг</li>
+		<li>Исправлены баги с освещением</li>
+		<li>Исправлены баги с непрорисовкой моделек из некоторых положений</li>
+		<li>Переписан построитель графиков</li>
+		<li>Исправлена и включена по умолчанию анимация качения шарика</li>
+		<li>Исправлена ошибка в расчетах угловой скорости</li>
+		<li>Скорость эксперимента теперь можно регулировать в реальном времени</li>
+		<li>Добавлен индикатор времени, прошедшего с начала эксперимента</li>
+	</ul>
+	<b>[v0.35]</b> - 20 Aug 2014
+	<ul>
+		<li>Исправлен глюк с отображением шрифтов в Windows 98 (сломано в v0.34)</li>
+		<li>Улучшена поддержка системных шрифтов</li>
+	</ul>
+	<b>[v0.34]</b> - 07 Aug 2014
+	<ul>
+		<li>Добавлена совместимость с Qt5</li>
+		<li>Форма основного окна теперь одна для всех платформ</li>
+		<li>В основном окне теперь используются системные шрифты, если они поддерживают кириллицу</li>
+		<li>Добавлено управление с клавиатуры графическим виджетом, если он в фокусе</li>
+		<li>Изменен порядок передачи фокуса между элементами управления на адекватный</li>
+		<li>Анимация шарика сделана опциональной</li>
+		<li>В окне лицензии исправлены адреса ссылок, сами ссылки теперь кликабельны</li>
+		<li>Убрано все ненужное из файла проекта</li>
+		<li>Исправлены и доработаны сборочные скрипты</li>
+		<li>MinGW 4.8.x некорректно работал с __attribute__((packed)), заменено на #pragma pack</li>
+		<li>Убраны ненужные подключения &lt;GL/glext.h&gt;</li>
+		<li>Вместо &lt;GL/glu.h&gt; используется платформонезависимый &lt;QtOpenGL&gt;</li>
+		<li>Проект портирован под MSVC (протестировано на MSVC 2005 и MSVC 2013)</li>
+		<li>Исправлены все предупреждения компилятора</li>
+		<li>Исправлены найденные утечки памяти и переполнения</li>
+		<li>Бинарные билды теперь собираются в MSVC 2013 (кроме legacy), появиласть сборка для x64</li>
+	</ul>
+	<b>[v0.33]</b> - 09 Jan 2014
+	<ul>
+		<li>Исправлены и оптимизированы сборочные скрипты для Win32</li>
+		<li>В заголовок главного окна добавлена версия программы</li>
+	</ul>
+	<b>[v0.32]</b> - 02 Dec 2013
+	<ul>
+		<li>Добавлен обработчик ошибки численного моделирования, которая приводила к зависанию программы в бесконечном цикле</li>
+	</ul>
+	<b>[v0.31]</b> - 02 Dec 2013
+	<ul>
+		<li>Исправлена ошибка в анимации качения шарика</li>
+	</ul>
+	<b>[v0.30]</b> - 02 Dec 2013
+	<ul>
+		<li>Добавлена анимация качения шарика</li>
+		<li>В случае, когда шар не может преодолеть петлю, теперь указывается причина</li>
+	</ul>
+	<b>[v0.29]</b> - 01 Dec 2013
+	<ul>
+		<li>Убран скроллбар в окне с лицензией в Win32 версии</li>
+		<li>Добавлен пункт меню "О Qt"</li>
+		<li>Исправлена подпись окна-заставки</li>
+		<li>Увеличена производительность при отрисовке графиков</li>
+		<li>Увеличена производительность при масштабировании 3D моделей</li>
+		<li>Исправлен баг: при старте программы фактические начальные значения не всегда соответствовали положениям ползунков</li>
+		<li>Текстура желоба заменена на более светлую</li>
+	</ul>
+	<b>[v0.28]</b> - 11 Nov 2013
+	<ul>
+		<li>Почти полный рефакторинг кода, исправлено множество багов, движок обновлен до последней версии, используемой в проекте pendulum</li>
+	</ul>
+	<i>Список предыдущих изменений, увы, не сохранился.</i>
+	</div></div>
+	<!--[if true]><![if gt IE 7]><![endif]-->
+	<script language="JavaScript" type="text/javascript">toggleObjectVisibility('spoiler_changelog');</script>
+	<!--[if true]><![endif]><![endif]-->
+	<br>
+
+	<br>
+	<h2>Модель</h2>
+	<p>В рамках данного проекта мы моделируем движение шарика с качением без скольжения в «мёртвой петле», образованной прямоугольным желобом.</p>
+	<p align="center"><img src="images/image001.png" alt="[image]" class="img_model"></p>
+	<p align="center"><i>Траектория движения центра шарика при прохождении петли</i></p>
+	<p class="p_model_var">β - угол наклона начального участка</p>
+	<p class="p_model_var">L - длина начального участка петли</p>
+	<p class="p_model_var">R - радиус петли</p>
+	<p class="p_model_var">r - радиус шарика</p>
+	<p class="p_model_var">α - текущий угол, с помощью которого задаём положение шарика</p>
+	<p>Движение шарика разбивается на четыре основных участка: движение по наклонной части желоба, движение по входному в петлю сектору β, движение в петле и выкатывание шарика по горизонтальному участку желоба.</p>
+	<p>Поскольку мы имеем дело с качением, для решения задачи нам необходимо составить уравнение динамики вращательного движения твёрдого тела относительно оси вращения.</p>
+	<p align="center"><img src="images/pic1.png" alt="M=I*d&#969;/dt" class="img_model"></p>
+	<p>Необходимо вычислить момент инерции. Рассмотрим вращение шарика относительно неподвижной оси, совпадающей в данный момент времени с мгновенной осью вращения. Нам известен момент инерции шарика относительно оси, проходящей через центр масс. Поэтому мы можем воспользоваться теоремой Штейнера, если найдём расстояние между осями:</p>
+	<p align="center"><img src="images/image002.png" alt="[image]" class="img_model"></p>
+	<p align="center"><img src="images/image004.png" alt="h=r/sqrt(2)" class="img_model"></p>
+	<p align="center"><i>Поперечное сечение шарика и желоба</i></p>
+	<p>Вращение шарика при качении происходит вокруг оси, обозначенной пунктиром.</p>
+	<p>Воспользуемся теоремой Штейнера.</p>
+	<p align="center"><img src="images/image006.png" alt="I=(2/5)*m*r^2+m*h^2" class="img_model"></p>
+	<p>Теперь рассмотрим первый участок движения шарика:</p>
+	<p>Относительно данной оси в уравнении динамики вращательного движения твёрдого тела ненулевым является только момент силы тяжести.</p>
+	<p align="center"><img src="images/sn1.png" alt="M_gr=m*g*h*sin(β)" class="img_model"></p>
+	<p>Мы можем вычислить характеристики шарика:</p>
+	<p align="center"><img src="images/sn2.png" alt="I*&#949;=M_gr -> &#949;=M_gr/I" class="img_model"></p>
+	<p align="center"><img src="images/image012.png" alt="a=&#949;*h, x=x_0+g*t^2*sin(β)*cos(β)/3.6, y=y_0-g*t^2*sin(β)*sin(β)/3.6, v_x=g*t*sin(β)*cos(β)/1.8, v_y=g*t*sin(β)*sin(β)/1.8, v=sqrt(v_x^2+v_y^2)" class="img_model"></p>
+	<p>На втором участке при расчёте углового ускорения шарика и мгновенного ускорения поступаем аналогично. Движение рассматриваем как движение по окружности (пунктир на рисунке соответствует траектории движения центра шарика).</p>
+	<p>Угол α изменяется от – β до 2π</p>
+	<p align="center"><img src="images/image014.png" alt="x=(R-r*sqrt(2))*sin(α)+(L*cos(β)+R*sin(β)), y=-(R-r*sqrt(2))*cos(α)+R" class="img_model"></p>
+	<p align="center"><img src="images/sn3.png" alt="a=(-5/9)*g*sin(α), &#949;_tr=a/(R-r*sqrt(2))" class="img_model"></p>
+	<p>Так как <img src="images/image018.png" alt="α=f(&#949;(α),&#969;)" class="img_model">, найдём α при помощи метода Эйлера. Реализация его алгоритма находится непосредственно в коде.</p>
+	<p align="center"><img src="images/image020.png" alt="v=&#969;*(R-r*sqrt(2))" class="img_model"></p>
+	<p>Третий участок отличается от второго смещением по ещё одной оси координат (необходимо для движения именно по петле, а не по замкнутой окружности).</p>
+	<p>Движение по последнему участку:</p>
+	<p align="center"><img src="images/image022.png" alt="x=L*cos(β)+R*sin(β)+v*t" class="img_model"></p>
+	<p>Случай падения находим, если выполняется:</p>
+	<p align="center"><img src="images/image024.png" alt="v^2/(R-r/2)<g*cos(α+π)" class="img_model"></p>
+	<br>
+</body>
+</html>
