@@ -1,0 +1,17 @@
+Source: deathloop
+Section: education
+Priority: optional
+Maintainer: Peter Zhigalov <peter.zhigalov@gmail.com>
+Build-Depends: debhelper (>= 9), sed
+Homepage: https://aliencoweatcake.github.io/deathloop/
+
+Package: deathloop
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: virtual physical laboratory for simulation of the ball rolling through loop-the-loop with various initial conditions
+ This software simulates the ball rolling through loop-the-loop (vertical loop, where a section of track completes a 360 degree circle). The software allows you to adjust the following parameters of the model: starting ramp angle, starting ramp lenght, loop radius and ball radius.
+ .
+ The software allows you to plot graphs of the following functions:
+  * Ball speed
+  * Ball angular velocity
+  * Height (the distance from the lowest point of the trough to the ball)

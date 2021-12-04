@@ -34,6 +34,7 @@
 #include <QResizeEvent>
 #include <QActionGroup>
 #include <QMap>
+#include <QStyleFactory>
 
 #include "widgets/HtmlWindow/HtmlWindow.h"
 #include "widgets/SplashScreenWindow/SplashScreenWindow.h"
@@ -88,6 +89,11 @@ MainWindow::MainWindow(QWidget *parent)
     const QList<QLabel*> allLabels = findChildren<QLabel*>();
     for(QList<QLabel*>::ConstIterator it = allLabels.begin(); it != allLabels.end(); ++it)
         (*it)->setStyleSheet(QString::fromLatin1("QLabel { font-size: 12pt; }"));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
+    const QList<QSlider*> allSliders = findChildren<QSlider*>();
+    for(QList<QSlider*>::ConstIterator it = allSliders.begin(); it != allSliders.end(); ++it)
+        (*it)->setStyle(QStyleFactory::create(QString::fromLatin1("Fusion")));
+#endif
 #endif
 
     m_physicalController->resetPhysicalEngine();
@@ -233,8 +239,13 @@ void MainWindow::updateTranslations(QString language)
         qApp->removeTranslator(&qtTranslator);
     if(!appTranslator.isEmpty())
         qApp->removeTranslator(&appTranslator);
-    qtTranslator.load(QString::fromLatin1("qt_%1").arg(language), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    appTranslator.load(QString::fromLatin1(":/translations/%1").arg(language));
+    (void)qtTranslator.load(QString::fromLatin1("qt_%1").arg(language),
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+                            QLibraryInfo::path(QLibraryInfo::TranslationsPath));
+#else
+                            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+#endif
+    (void)appTranslator.load(QString::fromLatin1(":/translations/%1").arg(language));
     qApp->installTranslator(&qtTranslator);
     qApp->installTranslator(&appTranslator);
     m_ui->retranslateUi(this);
@@ -278,7 +289,7 @@ void MainWindow::updateTranslations(QString language)
     QApplication::postEvent(this, new QResizeEvent(size(), size()));
 
     // Зададим дефолтное имя файла сохранялке скриншотов
-    m_imageSaver->setDefaultName(tr("Screenshot.png"));
+    m_imageSaver->setDefaultFilePath(tr("Screenshot.png"));
 }
 
 MainWindow::~MainWindow()

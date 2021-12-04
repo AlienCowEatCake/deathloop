@@ -72,6 +72,11 @@ Makefile*
 # Binaries
 /deathloop
 /deathloop_*.dmg
+/deathloop_*.zip
+/deathloop_*.msi
+/deathloop_*.gz
+/deathloop_*.AppImage
+/deathloop_*.deb
 
 # OS X garbage
 .DS_Store

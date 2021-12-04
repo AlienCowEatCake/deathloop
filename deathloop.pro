@@ -90,7 +90,13 @@ RESOURCES += \
     src/Deathloop/resources/menuicons/menuicons-svg.qrc \
     src/Deathloop/resources/translations/translations.qrc
 
-lessThan(QT_VERSION, 5.4.0) {
+greaterThan(QT_MAJOR_VERSION, 5) {
+    CONFIG += use_svg_splash
+}
+equals(QT_MAJOR_VERSION, 5) : greaterThan(QT_MINOR_VERSION, 4) {
+    CONFIG += use_svg_splash
+}
+!use_svg_splash {
     RESOURCES += src/Deathloop/resources/splash/splash-png.qrc
 } else {
     RESOURCES += src/Deathloop/resources/splash/splash-svg.qrc
