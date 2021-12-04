@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>ball.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>ru.codefreak.fami.deathloop</string>
+	<string>com.github.aliencoweatcake.deathloop</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

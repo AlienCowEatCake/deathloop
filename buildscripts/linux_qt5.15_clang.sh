@@ -1,6 +1,6 @@
 #!/bin/bash -e
 PROJECT="deathloop"
-IDENTIFIER="ru.codefreak.fami.deathloop"
+IDENTIFIER="com.github.aliencoweatcake.deathloop"
 BUILDDIR="build_linux_qt5.15_clang"
 SUFFIX="_qt5.15_$(gcc -dumpmachine)"
 APP_PATH="."

@@ -22,9 +22,9 @@ binary-arch: build
 	dh_prep
 	dh_installdirs
 	cp -a usr/* debian/deathloop/opt/Deathloop
-	ln -s /opt/Deathloop/share/applications/ru.codefreak.fami.deathloop.desktop debian/deathloop/usr/share/applications/ru.codefreak.fami.deathloop.desktop
-	sed -i 's|^Exec=deathloop|Exec=/opt/Deathloop/bin/deathloop|' debian/deathloop/opt/Deathloop/share/applications/ru.codefreak.fami.deathloop.desktop
-	find debian/deathloop/opt/Deathloop/share/icons -name 'ru.codefreak.fami.deathloop.*' -print | while read -r ICON_PATH ; do \
+	ln -s /opt/Deathloop/share/applications/com.github.aliencoweatcake.deathloop.desktop debian/deathloop/usr/share/applications/com.github.aliencoweatcake.deathloop.desktop
+	sed -i 's|^Exec=deathloop|Exec=/opt/Deathloop/bin/deathloop|' debian/deathloop/opt/Deathloop/share/applications/com.github.aliencoweatcake.deathloop.desktop
+	find debian/deathloop/opt/Deathloop/share/icons -name 'com.github.aliencoweatcake.deathloop.*' -print | while read -r ICON_PATH ; do \
 		ICON_LINK_TARGET=$$(echo $${ICON_PATH} | sed 's|^debian/deathloop||') ; \
 		ICON_LINK_PATH=$$(echo $${ICON_PATH} | sed 's|/opt/Deathloop/|/usr/|') ; \
 		mkdir -p $$(dirname $${ICON_LINK_PATH}) ; \
