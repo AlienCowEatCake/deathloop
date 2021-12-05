@@ -1,8 +1,7 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
-Name=Loop the Loop
-Name[ru]=Мёртвая петля
+Name=Deathloop
 Comment=Virtual physical laboratory for simulation of the ball rolling through loop-the-loop with various initial conditions
 Comment[ru]=Виртуальная физическая лаборатория, моделирующая движение шарика в «мёртвой петле» при различных начальных условиях
 Exec=deathloop %f
