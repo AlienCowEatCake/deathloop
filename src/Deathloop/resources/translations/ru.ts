@@ -121,27 +121,27 @@
 <context>
     <name>ImageSaver</name>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="72"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="98"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="75"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="105"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="81"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="118"/>
         <source>Save Image File</source>
         <translation>Сохранить изображение</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="109"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="133"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="109"/>
+        <location filename="../../../PhysicalLabCore/utils/ImageSaver.cpp" line="133"/>
         <source>Error: Can&apos;t save file</source>
         <translation>Ошибка: Не удалось сохранить файл</translation>
     </message>
@@ -280,8 +280,8 @@
     </message>
     <message>
         <location filename="../../MainWindow.ui" line="447"/>
-        <location filename="../../MainWindow.cpp" line="252"/>
-        <location filename="../../MainWindow.cpp" line="365"/>
+        <location filename="../../MainWindow.cpp" line="263"/>
+        <location filename="../../MainWindow.cpp" line="376"/>
         <source>Start</source>
         <translation>Старт</translation>
     </message>
@@ -291,73 +291,73 @@
         <translation>Сброс</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="255"/>
-        <location filename="../../MainWindow.cpp" line="340"/>
-        <location filename="../../MainWindow.cpp" line="344"/>
+        <location filename="../../MainWindow.cpp" line="266"/>
+        <location filename="../../MainWindow.cpp" line="351"/>
+        <location filename="../../MainWindow.cpp" line="355"/>
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="258"/>
-        <location filename="../../MainWindow.cpp" line="348"/>
+        <location filename="../../MainWindow.cpp" line="269"/>
+        <location filename="../../MainWindow.cpp" line="359"/>
         <source>Resume</source>
         <translatorcomment>Вообще надо возобновить или продолжить, но кнопка слишком маленькой ширины</translatorcomment>
         <translation type="unfinished">Старт</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="263"/>
-        <location filename="../../MainWindow.cpp" line="275"/>
+        <location filename="../../MainWindow.cpp" line="274"/>
+        <location filename="../../MainWindow.cpp" line="286"/>
         <source>Loop the Loop</source>
         <translation>Мертвая петля</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="264"/>
+        <location filename="../../MainWindow.cpp" line="275"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="266"/>
+        <location filename="../../MainWindow.cpp" line="277"/>
         <source>Credits</source>
         <translation>Разработчики</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="281"/>
+        <location filename="../../MainWindow.cpp" line="292"/>
         <source>Screenshot.png</source>
         <translation>Скриншот.png</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="308"/>
+        <location filename="../../MainWindow.cpp" line="319"/>
         <source>Status</source>
         <translation>Статус</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="312"/>
-        <location filename="../../MainWindow.cpp" line="316"/>
+        <location filename="../../MainWindow.cpp" line="323"/>
+        <location filename="../../MainWindow.cpp" line="327"/>
         <source>The ball could not pass a loop</source>
         <translation type="unfinished">Шар не смог совершить &quot;мертвую петлю&quot;</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="313"/>
+        <location filename="../../MainWindow.cpp" line="324"/>
         <source>Reason: The ball rolled back</source>
         <translation>Причина: начал катиться обратно</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="317"/>
+        <location filename="../../MainWindow.cpp" line="328"/>
         <source>Reason: The ball dropped out of the loop</source>
         <translation>Причина: выпал из петли</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="320"/>
+        <location filename="../../MainWindow.cpp" line="331"/>
         <source>Error while performing the simulation</source>
         <translation>Ошибка при моделировании</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="321"/>
+        <location filename="../../MainWindow.cpp" line="332"/>
         <source>Please try a different combination of initial conditions</source>
         <translation>Попробуйте ввести другие параметры</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="268"/>
+        <location filename="../../MainWindow.cpp" line="279"/>
         <source>License</source>
         <translation>Лицензия</translation>
     </message>
